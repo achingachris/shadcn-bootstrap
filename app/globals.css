@@ -1,0 +1,215 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Updated color tokens to use Emerald Green as primary with HAAAFLA palette */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.35 0 0);
+  --card: oklch(0.98 0 0);
+  --card-foreground: oklch(0.35 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.35 0 0);
+  --primary: oklch(0.65 0.12 155); /* Emerald Green #5DBC85 */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.35 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.55 0 0);
+  --accent: oklch(0.75 0.15 85); /* Golden Yellow #ECB336 */
+  --accent-foreground: oklch(0.1 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.98 0 0);
+  --ring: oklch(0.65 0.12 155);
+  --chart-1: oklch(0.65 0.12 155); /* Emerald Green */
+  --chart-2: oklch(0.75 0.15 85); /* Golden Yellow */
+  --chart-3: oklch(0.65 0.2 45); /* Orange */
+  --chart-4: oklch(0.55 0.15 180); /* Teal */
+  --chart-5: oklch(0.55 0.2 320); /* Magenta */
+  --radius: 0.5rem;
+  --sidebar: oklch(0.98 0 0);
+  --sidebar-foreground: oklch(0.35 0 0);
+  --sidebar-primary: oklch(0.65 0.12 155);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.96 0 0);
+  --sidebar-accent-foreground: oklch(0.35 0 0);
+  --sidebar-border: oklch(0.92 0 0);
+  --sidebar-ring: oklch(0.65 0.12 155);
+
+  /* Added custom HAAAFLA brand colors */
+  --haaafla-emerald: oklch(0.65 0.12 155); /* #5DBC85 */
+  --haaafla-golden: oklch(0.75 0.15 85); /* #ECB336 */
+  --haaafla-orange: oklch(0.65 0.2 45); /* #F39036 */
+  --haaafla-teal: oklch(0.55 0.15 180); /* #1FA395 */
+  --haaafla-magenta: oklch(0.55 0.2 320); /* #A5387A */
+  --haaafla-soft-gold: oklch(0.8 0.1 75); /* #E5B76E */
+}
+
+.dark {
+  /* Updated dark theme colors with Emerald Green primary */
+  --background: oklch(0.1 0 0);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.12 0 0);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.12 0 0);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.7 0.12 155); /* Brighter Emerald Green for dark mode */
+  --primary-foreground: oklch(0.1 0 0);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.8 0.15 85); /* Brighter Golden Yellow for dark mode */
+  --accent-foreground: oklch(0.1 0 0);
+  --destructive: oklch(0.5 0.2 25);
+  --destructive-foreground: oklch(0.95 0 0);
+  --border: oklch(0.2 0 0);
+  --input: oklch(0.2 0 0);
+  --ring: oklch(0.7 0.12 155);
+  --chart-1: oklch(0.7 0.12 155);
+  --chart-2: oklch(0.8 0.15 85);
+  --chart-3: oklch(0.7 0.2 45);
+  --chart-4: oklch(0.6 0.15 180);
+  --chart-5: oklch(0.6 0.2 320);
+  --sidebar: oklch(0.15 0 0);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.7 0.12 155);
+  --sidebar-primary-foreground: oklch(0.1 0 0);
+  --sidebar-accent: oklch(0.2 0 0);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.2 0 0);
+  --sidebar-ring: oklch(0.7 0.12 155);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Added HAAAFLA brand color utilities */
+  --color-haaafla-emerald: var(--haaafla-emerald);
+  --color-haaafla-golden: var(--haaafla-golden);
+  --color-haaafla-orange: var(--haaafla-orange);
+  --color-haaafla-teal: var(--haaafla-teal);
+  --color-haaafla-magenta: var(--haaafla-magenta);
+  --color-haaafla-soft-gold: var(--haaafla-soft-gold);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Added viewport optimization and responsive utilities */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 100%;
+  }
+
+  .viewport-safe {
+    @apply min-h-screen w-full overflow-x-hidden;
+  }
+
+  .content-wrapper {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Added custom HAAAFLA brand color utilities */
+@layer utilities {
+  .bg-haaafla-emerald {
+    background-color: var(--haaafla-emerald);
+  }
+  .bg-haaafla-golden {
+    background-color: var(--haaafla-golden);
+  }
+  .bg-haaafla-orange {
+    background-color: var(--haaafla-orange);
+  }
+  .bg-haaafla-teal {
+    background-color: var(--haaafla-teal);
+  }
+  .bg-haaafla-magenta {
+    background-color: var(--haaafla-magenta);
+  }
+  .bg-haaafla-soft-gold {
+    background-color: var(--haaafla-soft-gold);
+  }
+
+  .text-haaafla-emerald {
+    color: var(--haaafla-emerald);
+  }
+  .text-haaafla-golden {
+    color: var(--haaafla-golden);
+  }
+  .text-haaafla-orange {
+    color: var(--haaafla-orange);
+  }
+  .text-haaafla-teal {
+    color: var(--haaafla-teal);
+  }
+  .text-haaafla-magenta {
+    color: var(--haaafla-magenta);
+  }
+  .text-haaafla-soft-gold {
+    color: var(--haaafla-soft-gold);
+  }
+
+  .border-haaafla-emerald {
+    border-color: var(--haaafla-emerald);
+  }
+  .border-haaafla-golden {
+    border-color: var(--haaafla-golden);
+  }
+  .border-haaafla-orange {
+    border-color: var(--haaafla-orange);
+  }
+  .border-haaafla-teal {
+    border-color: var(--haaafla-teal);
+  }
+  .border-haaafla-magenta {
+    border-color: var(--haaafla-magenta);
+  }
+  .border-haaafla-soft-gold {
+    border-color: var(--haaafla-soft-gold);
+  }
+}

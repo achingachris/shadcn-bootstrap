@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "user-1",
+      "username": "admin",
+      "password": "admin123",
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@haaafla.com",
+      "phone": "+254 700 000 000",
+      "avatar": "/professional-african-woman-smiling.png",
+      "joinDate": "2024-01-01",
+      "role": "admin"
+    },
+    {
+      "id": "user-2",
+      "username": "amara",
+      "password": "password123",
+      "firstName": "Amara",
+      "lastName": "Ochieng",
+      "email": "amara.ochieng@example.com",
+      "phone": "+254 700 123 456",
+      "avatar": "/professional-african-woman-smiling.png",
+      "joinDate": "2024-01-15",
+      "role": "user"
+    },
+    {
+      "id": "user-3",
+      "username": "demo",
+      "password": "demo123",
+      "firstName": "Demo",
+      "lastName": "User",
+      "email": "demo@haaafla.com",
+      "phone": "+254 700 999 999",
+      "avatar": "/professional-african-woman-smiling.png",
+      "joinDate": "2024-02-01",
+      "role": "user"
+    }
+  ]
+}
