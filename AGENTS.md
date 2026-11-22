@@ -115,8 +115,8 @@ Say "unofficial community port" wherever the project describes itself. Don't use
 **Branches:** feature branch → `dev` → `main`.
 
 - `dev` is the default branch. Branch from a freshly pulled `dev` and open PRs **into `dev`**. PRs are squash-merged, so the **PR title** becomes the commit message on `dev` and must be a Conventional Commit (`feat(registry): …`, `fix(docs): …`). Release notes and version bumps come from these.
-- Never open a PR into `main`. Only the maintainer merges `dev` → `main`, with a merge commit so each Conventional Commit reaches `main` intact. The `source-branch` check (`.github/workflows/pr-target.yml`) fails any PR into `main` that isn't from `dev` or release-please.
-- Both branches have rulesets: changes go through PRs, and the CI `build` check must pass.
+- Never open a PR into `main`; the maintainer rejects them. Only the maintainer merges `dev` → `main`, with a merge commit so each Conventional Commit reaches `main` intact. The `source-branch` check (`.github/workflows/pr-target.yml`) flags any PR into `main` that isn't from `dev` or release-please.
+- A ruleset on `main` blocks direct pushes, force pushes and deletion for everyone: `main` only changes through merge-commit PRs. It deliberately requires no status checks, because release-please's PRs don't trigger CI.
 
 **Releases are automated with release-please** (`.github/workflows/publish.yml`, `release-please-config.json`, `.release-please-manifest.json`):
 
