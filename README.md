@@ -33,7 +33,7 @@ The CSS comes in three layers on top of stock Bootstrap:
 
 Tokens and components sit in Bootstrap 6's `custom` cascade layer, so Bootstrap utilities still win. The bridge's `:root` block is unlayered, because Bootstrap 6 alpha.1 emits its own `:root` tokens unlayered; load shadcn-bootstrap after Bootstrap. The same CSS also works in plain HTML and server templates.
 
-**Status:** early release, `0.0.2` on npm and jsDelivr. <!-- x-release-please-version --> Bootstrap 6 is still in alpha, so pin exact versions. Tokens, bridge and 8 components (Button, Badge, Card, Alert, Input, Label, Checkbox, Switch) are built, each as CSS plus React, Vue and Angular components. The rest of shadcn's 66 components are planned; the docs' Components page shows the status of each.
+**Status:** early release, `0.0.3` on npm and jsDelivr. <!-- x-release-please-version --> Bootstrap 6 is still in alpha, so pin exact versions. Tokens, bridge and 8 components (Button, Badge, Card, Alert, Input, Label, Checkbox, Switch) are built, each as CSS plus React, Vue and Angular components. The rest of shadcn's 66 components are planned; the docs' Components page shows the status of each.
 
 ## Use it in your framework
 
@@ -57,7 +57,7 @@ Then add components with the CLI (`npx shadcn-bootstrap add button card`, planne
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-bootstrap@0.0.2/dist/css/shadcn-bootstrap.min.css"> <!-- x-release-please-version -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-bootstrap@0.0.3/dist/css/shadcn-bootstrap.min.css"> <!-- x-release-please-version -->
 <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js"></script>
 ```
 
@@ -81,7 +81,7 @@ Switch base color by loading a theme file after the bundle, or paste a block fro
 
 <!-- x-release-please-start-version -->
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-bootstrap@0.0.2/dist/css/themes/slate.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-bootstrap@0.0.3/dist/css/themes/slate.css">
 ```
 <!-- x-release-please-end -->
 
