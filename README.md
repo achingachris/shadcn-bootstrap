@@ -89,7 +89,7 @@ Browser support matches Bootstrap 6: Chrome/Edge 130+, Firefox 132+, Safari 18+.
 
 ## Develop
 
-Requires Node 18+.
+Requires Node 22.23+ (the docs site uses Astro 7).
 
 ```bash
 npm install
