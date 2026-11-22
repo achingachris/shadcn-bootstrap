@@ -1,0 +1,17 @@
+---
+// Highlighted code with a label and copy button. Used inside <Example>/<Terminal>, and
+// on its own only for config files (components.json, package.json), which have no output.
+import { Code } from "astro:components";
+import CopyButton from "./CopyButton.astro";
+
+interface Props { code: string; lang?: string; label?: string; class?: string }
+const { code, lang = "html", label, class: className } = Astro.props;
+const trimmed = code.replace(/^\n+|\s+$/g, "");
+---
+<div class:list={["docs-code", className]}>
+  <div class="docs-code-bar">
+    <span class="docs-code-label">{label ?? lang.toUpperCase()}</span>
+    <CopyButton code={trimmed} />
+  </div>
+  <Code code={trimmed} lang={lang as any} themes={{ light: "github-light", dark: "github-dark-default" }} defaultColor={false} />
+</div>

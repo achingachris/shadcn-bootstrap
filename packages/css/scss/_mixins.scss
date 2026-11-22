@@ -1,0 +1,10 @@
+// Shared helpers for component partials.
+
+// shadcn's focus treatment: a 3px ring in --ring at 50% alpha, no offset gap.
+@mixin focus-ring($offset: 0) {
+  outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring-color);
+  outline-offset: $offset;
+}
+
+// shadcn's `shadow-xs`, used on inputs and outline buttons.
+$shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 5%);

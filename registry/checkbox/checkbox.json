@@ -1,0 +1,33 @@
+{
+  "$schema": "../schema.json#/$defs/manifest",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "A control that allows the user to toggle between checked and not checked.",
+  "tier": 1,
+  "bootstrap": {
+    "classes": [
+      ".check",
+      ".form-field"
+    ]
+  },
+  "files": [
+    {
+      "path": "checkbox.css",
+      "type": "css"
+    },
+    {
+      "path": "checkbox.example.html",
+      "type": "example"
+    }
+  ],
+  "registryDependencies": [
+    "label"
+  ],
+  "cssVars": [
+    "--input",
+    "--primary",
+    "--primary-foreground",
+    "--ring",
+    "--destructive"
+  ]
+}

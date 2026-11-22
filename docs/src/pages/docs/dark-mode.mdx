@@ -1,0 +1,47 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: Dark mode
+description: Every token has a light and a dark value. Bootstrap 6's color-scheme decides which one you see.
+---
+import Example from "../../components/Example.astro";
+
+Each color token is written as `light-dark(light, dark)`. Bootstrap 6 sets `color-scheme: light dark` on the root, so by default the page follows the operating system. Every example on this site has its own **Light** and **Dark** buttons to try both.
+
+## Force a mode
+
+Set Bootstrap's `data-bs-theme` attribute. On `<html>` it applies to the whole page; on any element it applies to that subtree.
+
+export const forced = `<div class="d-flex flex-wrap gap-3">
+  <div data-bs-theme="light" class="card p-3" style="width: 15rem">
+    <p class="mb-2 fw-medium">Always light</p>
+    <button class="btn btn-solid theme-primary btn-sm">Button</button>
+  </div>
+  <div data-bs-theme="dark" class="card p-3" style="width: 15rem">
+    <p class="mb-2 fw-medium">Always dark</p>
+    <button class="btn btn-solid theme-primary btn-sm">Button</button>
+  </div>
+</div>`;
+
+<Example code={forced} title="data-bs-theme on a subtree" />
+
+## Add a toggle
+
+A toggle only needs to set `data-bs-theme` on `<html>` and remember the choice. Run the snippet in the preview; it toggles that preview only.
+
+export const toggle = `<button type="button" class="btn btn-outline" id="mode-toggle">Toggle dark mode</button>
+<script>
+  const root = document.documentElement;
+  document.getElementById("mode-toggle").addEventListener("click", () => {
+    const dark = root.getAttribute("data-bs-theme") !== "dark";
+    root.setAttribute("data-bs-theme", dark ? "dark" : "light");
+    try { localStorage.setItem("color-mode", dark ? "dark" : "light"); } catch {}
+  });
+</script>`;
+
+<Example code={toggle} frame title="Toggle button" minHeight="8rem" />
+
+To avoid a flash of the wrong mode on load, apply the saved value in a small inline script in `<head>`, before any CSS. This site does the same.
+
+## Why `light-dark()`
+
+Using `light-dark()` instead of a `.dark` class means one token definition covers both modes and nested overrides just work. It needs Chrome/Edge 123+, Firefox 120+ and Safari 17.5+, all below Bootstrap 6's own browser floor.

@@ -1,0 +1,43 @@
+---
+import "../../../packages/css/scss/entries/shadcn-bootstrap.scss";
+import "../styles/docs.scss";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { bootstrap, tokensCss } from "../lib/build-info";
+
+interface Props { title: string; description?: string }
+const { title, description = "The shadcn/ui look and own-your-code workflow for Bootstrap 6. Unofficial community port." } = Astro.props;
+const fullTitle = title === "shadcn-bootstrap" ? title : `${title} · shadcn-bootstrap`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{fullTitle}</title>
+    <meta name="description" content={description}>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <script is:inline>
+      // Apply the saved color mode before first paint (no flash).
+      try {
+        const mode = localStorage.getItem("sb-color-mode");
+        if (mode === "light" || mode === "dark") document.documentElement.setAttribute("data-bs-theme", mode);
+      } catch {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap">
+    <link rel="stylesheet" href={bootstrap.css.href} integrity={bootstrap.css.integrity} crossorigin="anonymous">
+    <style is:inline set:html={tokensCss()}></style>
+    <script type="module" src={bootstrap.js.src} integrity={bootstrap.js.integrity} crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <a class="visually-hidden-focusable docs-skip" href="#main">Skip to content</a>
+    <Header />
+    <slot />
+    <Footer />
+    <script>
+      import "../lib/client";
+    </script>
+  </body>
+</html>

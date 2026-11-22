@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema.json#/$defs/manifest",
+  "name": "input",
+  "title": "Input",
+  "description": "Displays a form input field or a component that looks like an input field.",
+  "tier": 1,
+  "bootstrap": {
+    "classes": [
+      ".form-control"
+    ]
+  },
+  "files": [
+    {
+      "path": "input.css",
+      "type": "css"
+    },
+    {
+      "path": "input.example.html",
+      "type": "example"
+    }
+  ],
+  "registryDependencies": [
+    "label"
+  ],
+  "cssVars": [
+    "--input",
+    "--foreground",
+    "--muted-foreground",
+    "--primary",
+    "--primary-foreground",
+    "--ring",
+    "--destructive",
+    "--radius"
+  ]
+}

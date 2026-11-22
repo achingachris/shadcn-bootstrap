@@ -1,0 +1,112 @@
+// Button: shadcn variants on Bootstrap 6's .btn.
+//
+// Markup (plain Bootstrap 6 classes):
+//   default      .btn.btn-solid.theme-primary
+//   secondary    .btn.btn-solid.theme-secondary
+//   destructive  .btn.btn-solid.theme-danger
+//   outline      .btn.btn-outline
+//   ghost        .btn.btn-text
+//   link         .btn.btn-link
+//   sizes        .btn-sm, .btn-lg, .btn-icon (square; combine with a size)
+@use "../mixins" as *;
+
+@layer custom {
+  .btn,
+  .btn-link,
+  .btn-icon {
+    --bs-btn-font-weight: 500;
+    --bs-btn-border-radius: var(--bs-radius-5);
+    --bs-btn-disabled-opacity: 0.5;
+    --bs-btn-transition-property: color, background-color, border-color, box-shadow, outline-color;
+
+    &:focus-visible {
+      --bs-focus-ring-offset: 0;
+    }
+
+    // Icons inside buttons: shadcn's [&_svg]:size-4
+    svg {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      pointer-events: none;
+    }
+  }
+
+  // Default / secondary / destructive: flat fills, hover at 90% (80% for secondary).
+  .btn-solid {
+    &:hover {
+      --bs-btn-hover-bg: color-mix(in oklch, var(--bs-theme-bg) 90%, transparent);
+      --bs-btn-hover-border-color: transparent;
+    }
+
+    &:active,
+    &.active {
+      --bs-btn-active-bg: color-mix(in oklch, var(--bs-theme-bg) 90%, transparent);
+      --bs-btn-active-border-color: transparent;
+    }
+
+    &.theme-secondary:hover,
+    &.theme-secondary:active {
+      --bs-btn-hover-bg: color-mix(in oklch, var(--bs-theme-bg) 80%, transparent);
+      --bs-btn-active-bg: color-mix(in oklch, var(--bs-theme-bg) 80%, transparent);
+    }
+
+    border-color: transparent;
+    box-shadow: $shadow-xs;
+  }
+
+  // Outline without a theme class = shadcn's neutral outline button.
+  .btn-outline:not([class*="theme-"]) {
+    --bs-btn-color: var(--foreground);
+    --bs-btn-bg: light-dark(var(--background), color-mix(in oklch, var(--input) 30%, transparent));
+    --bs-btn-border-color: light-dark(var(--border), var(--input));
+    --bs-btn-hover-color: var(--accent-foreground);
+    --bs-btn-hover-bg: light-dark(var(--accent), color-mix(in oklch, var(--input) 50%, transparent));
+    --bs-btn-hover-border-color: var(--bs-btn-border-color);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-border-color: var(--bs-btn-border-color);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: var(--bs-btn-bg);
+    --bs-btn-disabled-border-color: var(--bs-btn-border-color);
+
+    box-shadow: $shadow-xs;
+  }
+
+  // Text without a theme class = shadcn's ghost button.
+  .btn-text:not([class*="theme-"]) {
+    --bs-btn-color: var(--foreground);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: var(--accent-foreground);
+    --bs-btn-hover-bg: light-dark(var(--accent), color-mix(in oklch, var(--accent) 50%, transparent));
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: transparent;
+  }
+
+  // Link: primary text, underline on hover only.
+  .btn-link:not([class*="theme-"]) {
+    --bs-btn-font-weight: 500;
+
+    color: var(--primary);
+    text-decoration: none;
+    text-underline-offset: 4px;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+  }
+
+  // Icon buttons: square at every size.
+  .btn-icon {
+    width: var(--bs-btn-min-height);
+    padding: 0;
+  }
+}

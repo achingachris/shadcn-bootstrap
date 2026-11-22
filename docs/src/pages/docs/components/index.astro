@@ -1,0 +1,33 @@
+---
+import DocsLayout from "../../../layouts/DocsLayout.astro";
+import StatusBadge from "../../../components/StatusBadge.astro";
+import { catalog, tierLabel } from "../../../lib/catalog";
+
+const tiers = Object.keys(catalog.tiers).map(Number);
+const built = catalog.components.filter((c) => c.status === "built").length;
+const headings = tiers.map((t) => ({ depth: 2, slug: `tier-${t}`, text: tierLabel(t) }));
+---
+<DocsLayout
+  title="Components"
+  eyebrow="Components"
+  description={`All ${catalog.components.length} components from shadcn/ui, grouped by how much Bootstrap 6 already provides. ${built} are built; the rest are planned.`}
+  headings={headings}
+>
+  {tiers.map((tier) => {
+    const items = catalog.components.filter((c) => c.tier === tier);
+    return (
+      <>
+        <h2 id={`tier-${tier}`}>{tierLabel(tier)} <span class="text-nowrap fs-6 fw-normal fg-3">({items.filter((c) => c.status === "built").length}/{items.length} built)</span></h2>
+        <div class="docs-grid">
+          {items.map((c) => (
+            <a class="docs-grid-item" href={`/docs/components/${c.name}/`}>
+              <strong>{c.title}</strong>
+              <span set:html={c.bootstrap.replace(/`([^`]+)`/g, "<code>$1</code>")} />
+              <StatusBadge status={c.status} release={c.release} />
+            </a>
+          ))}
+        </div>
+      </>
+    );
+  })}
+</DocsLayout>

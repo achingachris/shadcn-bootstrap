@@ -1,0 +1,30 @@
+// Label: shadcn's label on Bootstrap 6's .form-label (and labels next to checks/switches).
+@layer custom {
+  .form-label {
+    --bs-label-margin-bottom: 0.5rem;
+
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    user-select: none;
+  }
+
+  // Labels beside a check, radio or switch.
+  :is(.check, .radio, .switch) ~ label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    user-select: none;
+  }
+
+  // shadcn's peer-disabled styling.
+  :is(.check, .radio, .form-control):disabled ~ label,
+  .switch:has(input:disabled) ~ label,
+  .form-field:has(:disabled) > .form-label {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

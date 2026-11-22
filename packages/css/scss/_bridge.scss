@@ -1,0 +1,146 @@
+// Bridge: maps shadcn tokens (from tokens.css or a theme file) onto Bootstrap 6's
+// root tokens, so plain Bootstrap markup picks up the shadcn look before any
+// component CSS is added. Every name below was checked against
+// bootstrap@6.0.0-alpha.1 (scss/_root.scss, scss/_theme.scss). Re-check on each alpha.
+//
+// NOT layered, on purpose: bootstrap@6.0.0-alpha.1 declares a `root` layer but emits
+// its :root tokens outside any layer, and unlayered declarations beat every layer.
+// To override them this block must also be unlayered and load after Bootstrap.
+// If a later alpha moves its tokens into `@layer root`, move this into `@layer custom`.
+
+// [data-sb-theme] re-evaluates the bridge inside a subtree, so tokens set on that
+// element (a scoped theme, the docs theme generator) reach Bootstrap's --bs-* vars.
+:root,
+:host,
+[data-sb-theme] {
+  // Typography
+  --font-sans: "Geist", "Inter", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", sfmono-regular, menlo, monaco, consolas, monospace;
+  --bs-body-font-family: var(--font-sans);
+  --bs-font-mono: var(--font-mono);
+  --bs-code-color: var(--foreground);
+  --bs-heading-color: var(--foreground);
+
+  // Surfaces and text. Bootstrap's numbered steps get the shadcn muted/accent ramp.
+  --bs-bg-body: var(--background);
+  --bs-bg-1: color-mix(in oklch, var(--muted) 50%, var(--background));
+  --bs-bg-2: var(--muted);
+  --bs-bg-3: var(--accent);
+  --bs-bg-4: var(--border);
+  --bs-fg-body: var(--foreground);
+  --bs-fg-1: var(--foreground);
+  --bs-fg-2: color-mix(in oklch, var(--foreground) 70%, var(--muted-foreground));
+  --bs-fg-3: var(--muted-foreground);
+  --bs-fg-4: color-mix(in oklch, var(--muted-foreground) 70%, var(--background));
+
+  // Borders
+  --bs-border-color: var(--border);
+  --bs-border-color-translucent: var(--border);
+  --bs-border-body: var(--border);
+  --bs-border-muted: var(--border);
+  --bs-border-subtle: var(--border);
+  --bs-border-emphasized: var(--input);
+  --bs-hr-border-color: var(--border);
+
+  // Radius: Bootstrap's 1-9 scale is a multiple of one base radius, same as shadcn's.
+  --bs-radius-1: calc(var(--radius) * 0.25);
+  --bs-radius-2: calc(var(--radius) * 0.375);
+  --bs-radius-3: calc(var(--radius) - 4px); // shadcn rounded-sm
+  --bs-radius-4: calc(var(--radius) - 2px); // shadcn rounded-md
+  --bs-radius-5: calc(var(--radius) - 2px); // buttons and inputs use rounded-md
+  --bs-radius-6: var(--radius); // shadcn rounded-lg
+  --bs-radius-7: calc(var(--radius) + 4px); // shadcn rounded-xl (cards)
+  --bs-radius-8: calc(var(--radius) + 6px);
+  --bs-radius-9: calc(var(--radius) + 8px);
+
+  // Focus: shadcn uses a 3px ring at 50% of --ring with no offset.
+  --bs-focus-ring-width: 3px;
+  --bs-focus-ring-offset: 0;
+  --bs-focus-ring-color: color-mix(in oklch, var(--ring) 50%, transparent);
+
+  // Links
+  --bs-link-color: var(--primary);
+  --bs-link-hover-color: var(--primary);
+  --bs-link-underline-offset: 4px;
+
+  // Shared button/input metrics: shadcn's h-9 / text-sm controls.
+  --bs-btn-input-fg: var(--foreground);
+  --bs-btn-input-bg: light-dark(transparent, color-mix(in oklch, var(--input) 30%, transparent));
+  --bs-btn-input-gap: 0.5rem;
+  --bs-btn-input-min-height: 2.25rem;
+  --bs-btn-input-padding-y: 0.25rem;
+  --bs-btn-input-padding-x: 1rem;
+  --bs-btn-input-font-size: 0.875rem;
+  --bs-btn-input-font-weight: 500;
+  --bs-btn-input-line-height: 1.25rem;
+  --bs-btn-input-border-radius: var(--bs-radius-5);
+  --bs-btn-input-xs-min-height: 1.75rem;
+  --bs-btn-input-xs-padding-x: 0.5rem;
+  --bs-btn-input-xs-font-size: 0.75rem;
+  --bs-btn-input-xs-border-radius: var(--bs-radius-5);
+  --bs-btn-input-sm-gap: 0.375rem;
+  --bs-btn-input-sm-min-height: 2rem;
+  --bs-btn-input-sm-padding-y: 0.25rem;
+  --bs-btn-input-sm-padding-x: 0.75rem;
+  --bs-btn-input-sm-font-size: 0.875rem;
+  --bs-btn-input-sm-line-height: 1.25rem;
+  --bs-btn-input-sm-border-radius: var(--bs-radius-5);
+  --bs-btn-input-lg-gap: 0.5rem;
+  --bs-btn-input-lg-min-height: 2.5rem;
+  --bs-btn-input-lg-padding-y: 0.5rem;
+  --bs-btn-input-lg-padding-x: 1.5rem;
+  --bs-btn-input-lg-font-size: 0.875rem;
+  --bs-btn-input-lg-line-height: 1.25rem;
+  --bs-btn-input-lg-border-radius: var(--bs-radius-5);
+
+  // Form controls
+  --bs-control-checked-bg: var(--primary);
+  --bs-control-checked-border-color: var(--primary);
+  --bs-control-active-bg: var(--primary);
+  --bs-control-active-border-color: var(--primary);
+  --bs-control-disabled-bg: var(--muted);
+  --bs-control-disabled-opacity: 0.5;
+
+  // Theme colors: primary/secondary/danger follow shadcn's primary/secondary/destructive.
+  --bs-primary-base: var(--primary);
+  --bs-primary-fg: var(--primary);
+  --bs-primary-fg-emphasis: var(--foreground);
+  --bs-primary-bg: var(--primary);
+  --bs-primary-bg-subtle: var(--muted);
+  --bs-primary-bg-muted: var(--accent);
+  --bs-primary-border: var(--border);
+  --bs-primary-focus-ring: color-mix(in oklch, var(--ring) 50%, transparent);
+  --bs-primary-contrast: var(--primary-foreground);
+
+  --bs-secondary-base: var(--secondary);
+  --bs-secondary-fg: var(--muted-foreground);
+  --bs-secondary-fg-emphasis: var(--secondary-foreground);
+  --bs-secondary-bg: var(--secondary);
+  --bs-secondary-bg-subtle: var(--muted);
+  --bs-secondary-bg-muted: var(--accent);
+  --bs-secondary-border: var(--border);
+  --bs-secondary-focus-ring: color-mix(in oklch, var(--ring) 50%, transparent);
+  --bs-secondary-contrast: var(--secondary-foreground);
+
+  --bs-danger-base: var(--destructive);
+  --bs-danger-fg: var(--destructive);
+  --bs-danger-fg-emphasis: color-mix(in oklch, var(--destructive) 80%, var(--foreground));
+  --bs-danger-bg: var(--destructive);
+  --bs-danger-bg-subtle: color-mix(in oklch, var(--destructive) 10%, var(--background));
+  --bs-danger-bg-muted: color-mix(in oklch, var(--destructive) 20%, var(--background));
+  --bs-danger-border: color-mix(in oklch, var(--destructive) 40%, var(--background));
+  --bs-danger-focus-ring: color-mix(in oklch, var(--destructive) 30%, transparent);
+  --bs-danger-contrast: var(--destructive-foreground);
+
+  // shadcn's soft shadows
+  --bs-box-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  --bs-box-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+}
+
+@layer custom {
+  body {
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

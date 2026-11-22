@@ -1,0 +1,73 @@
+// Input: shadcn's input on Bootstrap 6's .form-control (text, email, file, ...).
+@use "../mixins" as *;
+
+@layer custom {
+  .form-control {
+    --bs-control-min-height: 2.25rem;
+    --bs-control-padding-y: 0.25rem;
+    --bs-control-padding-x: 0.75rem;
+    --bs-control-font-size: 1rem;
+    --bs-control-line-height: 1.5rem;
+    --bs-control-fg: var(--foreground);
+    --bs-control-bg: light-dark(transparent, color-mix(in oklch, var(--input) 30%, transparent));
+    --bs-control-border-color: var(--input);
+    --bs-control-border-radius: var(--bs-radius-5);
+    --bs-control-placeholder-color: var(--muted-foreground);
+    --bs-control-disabled-bg: var(--bs-control-bg);
+    --bs-control-transition-property: color, border-color, box-shadow, outline-color;
+
+    min-width: 0;
+    box-shadow: $shadow-xs;
+
+    @media (width >= 768px) {
+      --bs-control-font-size: 0.875rem;
+      --bs-control-line-height: 1.25rem;
+    }
+
+    &::selection {
+      color: var(--primary-foreground);
+      background-color: var(--primary);
+    }
+
+    &:focus-visible,
+    &:focus-within {
+      border-color: var(--ring);
+
+      @include focus-ring;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &[aria-invalid="true"],
+    &.is-invalid {
+      border-color: var(--destructive);
+
+      &:focus-visible,
+      &:focus-within {
+        outline-color: var(--bs-danger-focus-ring);
+      }
+    }
+
+    &[type="file"] {
+      padding-block: 0;
+      line-height: calc(var(--bs-control-min-height) - 2px);
+    }
+
+    &::file-selector-button {
+      display: inline-flex;
+      min-height: 0;
+      height: 1.75rem;
+      padding: 0;
+      margin: 0;
+      margin-inline-end: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--foreground);
+      background-color: transparent;
+      border: 0;
+    }
+  }
+}

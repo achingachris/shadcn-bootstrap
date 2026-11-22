@@ -1,0 +1,33 @@
+{
+  "$schema": "../schema.json#/$defs/manifest",
+  "name": "switch",
+  "title": "Switch",
+  "description": "A control that allows the user to toggle between checked and not checked.",
+  "tier": 1,
+  "bootstrap": {
+    "classes": [
+      ".switch"
+    ]
+  },
+  "files": [
+    {
+      "path": "switch.css",
+      "type": "css"
+    },
+    {
+      "path": "switch.example.html",
+      "type": "example"
+    }
+  ],
+  "registryDependencies": [
+    "label"
+  ],
+  "cssVars": [
+    "--input",
+    "--primary",
+    "--primary-foreground",
+    "--background",
+    "--foreground",
+    "--ring"
+  ]
+}

@@ -1,0 +1,100 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: CLI
+description: Copy tokens and component CSS into your project. Planned for 0.1.0; output below is the designed behaviour.
+---
+import Terminal from "../../components/Terminal.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import { bootstrap, RELEASE_VERSION } from "../../lib/build-info";
+import { addOutput } from "../../lib/cli-output";
+
+The CLI is the `bin` of the `shadcn-bootstrap` npm package, so `npx` runs it with no install. It has no runtime dependencies and needs Node 18+. It downloads registry files from jsDelivr at the version pinned in `components.json`, so your CSS and the CLI stay in step.
+
+> The CLI ships in **{RELEASE_VERSION}**. Every terminal on this page is marked *planned* and shows the designed output.
+
+## init
+
+Writes `components.json`, copies `tokens.css` and `bridge.css`, and prints the tags to add.
+
+<Terminal
+  command="npx shadcn-bootstrap init"
+  output={`? Where should CSS files go? css
+? Base color: zinc
+✔ Wrote components.json
+✔ Created css/tokens.css
+✔ Created css/bridge.css
+
+Add these to your <head>, Bootstrap first:
+  <link rel="stylesheet" href="${bootstrap.css.href}" integrity="${bootstrap.css.integrity}" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/bridge.css">`}
+  planned
+/>
+
+`init` writes this config. It's a file, not something that renders, so it's shown on its own:
+
+<CodeBlock
+  lang="json"
+  label="components.json"
+  code={`{
+  "registry": "https://cdn.jsdelivr.net/npm/shadcn-bootstrap@${RELEASE_VERSION}/dist/registry",
+  "bootstrap": "${bootstrap.version}",
+  "paths": {
+    "tokens": "css",
+    "components": "css/components"
+  },
+  "theme": "zinc",
+  "installed": {}
+}`}
+/>
+
+## add
+
+Resolves dependencies and copies each component's CSS. It records a hash of every file, and refuses to overwrite a file you've edited unless you pass `--overwrite`.
+
+<Terminal command="npx shadcn-bootstrap add checkbox" output={addOutput(["checkbox"])} planned />
+
+<Terminal
+  command="npx shadcn-bootstrap add button"
+  output={`✖ css/components/button.css has local changes.
+  Run "npx shadcn-bootstrap diff button" to compare, or pass --overwrite to replace it.`}
+  planned
+/>
+
+## diff
+
+Shows what changed upstream compared with your copy.
+
+<Terminal
+  command="npx shadcn-bootstrap diff button"
+  output={`--- registry/button.css (${RELEASE_VERSION})
++++ css/components/button.css (yours)
+@@ -14,7 +14,7 @@
+   .btn-solid {
+     &:hover {
+-      --bs-btn-hover-bg: color-mix(in oklch, var(--bs-theme-bg) 90%, transparent);
++      --bs-btn-hover-bg: color-mix(in oklch, var(--bs-theme-bg) 85%, transparent);`}
+  planned
+/>
+
+## list
+
+Lists available components and marks the ones you've installed.
+
+<Terminal
+  command="npx shadcn-bootstrap list"
+  output={`Components (shadcn-bootstrap ${RELEASE_VERSION})
+  ✔ button      installed
+  ✔ checkbox    installed
+  ✔ label       installed (dependency)
+    alert
+    badge
+    card
+    input
+    switch`}
+  planned
+/>
+
+## Custom registries
+
+Point `registry` in `components.json` at your own URL to serve your team's components, the same way shadcn registries work. The format is the JSON Schema at `dist/registry/schema.json`.

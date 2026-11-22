@@ -1,0 +1,111 @@
+---
+import DocsLayout from "../../../layouts/DocsLayout.astro";
+import Example from "../../../components/Example.astro";
+import Terminal from "../../../components/Terminal.astro";
+import StatusBadge from "../../../components/StatusBadge.astro";
+import { catalog, getExamples, getManifest, tierLabel, type CatalogEntry } from "../../../lib/catalog";
+import { componentCss } from "../../../lib/build-info";
+import { addOutput } from "../../../lib/cli-output";
+
+export function getStaticPaths() {
+  return catalog.components.map((entry) => ({ params: { slug: entry.name }, props: { entry } }));
+}
+
+interface Props { entry: CatalogEntry }
+const { entry } = Astro.props;
+const manifest = getManifest(entry.name);
+const examples = getExamples(entry.name);
+const built = entry.status === "built" && manifest;
+const css = built ? componentCss(entry.name) : "";
+const md = (s: string) => s.replace(/`([^`]+)`/g, "<code>$1</code>");
+
+const headings = built
+  ? [
+      { depth: 2, slug: "installation", text: "Installation" },
+      ...(manifest.variants?.length ? [{ depth: 2, slug: "usage", text: "Usage" }] : []),
+      { depth: 2, slug: "examples", text: "Examples" },
+      ...examples.map((e) => ({ depth: 3, slug: e.slug, text: e.title })),
+      { depth: 2, slug: "css", text: "CSS" },
+      { depth: 2, slug: "css-variables", text: "CSS variables" },
+    ]
+  : [];
+---
+<DocsLayout title={entry.title} description={manifest?.description ?? `Planned for ${entry.release}. ${tierLabel(entry.tier)}.`} eyebrow="Components" headings={headings}>
+  <div slot="header" class="d-flex flex-wrap gap-2 align-items-center">
+    <StatusBadge status={entry.status} release={entry.release} />
+    <span class="badge badge-outline">{tierLabel(entry.tier)}</span>
+    {entry.batch !== null && <span class="badge badge-outline">Batch {entry.batch}</span>}
+  </div>
+
+  {built ? (
+    <>
+      <h2 id="installation">Installation</h2>
+      <p>Copy the component's CSS into your project with the CLI. It lands in your CSS folder and is yours to edit.</p>
+      <Terminal command={`npx shadcn-bootstrap add ${entry.name}`} output={addOutput([entry.name])} planned />
+      <p>Using the CDN bundle instead? It already includes {entry.title}; see <a href="/docs/installation/">Installation</a>.</p>
+
+      {manifest.variants?.length ? (
+        <>
+          <h2 id="usage">Usage</h2>
+          <p>Variants are plain Bootstrap 6 classes. shadcn-bootstrap restyles them; it doesn't add new variant names.</p>
+          <div class="docs-table-wrap">
+            <table class="docs-table">
+              <thead><tr><th>shadcn variant</th><th>Bootstrap 6 classes</th><th>Output</th></tr></thead>
+              <tbody>
+                {manifest.variants.map((v) => (
+                  <tr>
+                    <td>{v.name}</td>
+                    <td><code>{v.classes}</code></td>
+                    <td>
+                      {entry.name === "button" && <button type="button" class={v.classes}>{v.name[0].toUpperCase() + v.name.slice(1)}</button>}
+                      {entry.name === "badge" && <span class={v.classes}>{v.name[0].toUpperCase() + v.name.slice(1)}</span>}
+                      {entry.name === "alert" && <div class={`${v.classes} py-2`} role="status"><div class="alert-title">{v.name[0].toUpperCase() + v.name.slice(1)} alert</div></div>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      ) : null}
+
+      <h2 id="examples">Examples</h2>
+      {examples.map((ex) => (
+        <>
+          <h3 id={ex.slug}>{ex.title}</h3>
+          <Example code={ex.code} title={ex.title} />
+        </>
+      ))}
+
+      <h2 id="css">CSS</h2>
+      <p>
+        This is the file <code>add</code> copies. The preview below loads Bootstrap 6, <code>tokens.css</code>, <code>bridge.css</code>
+        and only this CSS, so what you see is exactly what this file produces.
+      </p>
+      <Example code={examples[0]?.code ?? ""} css={css} base="bridge" title={`${entry.title} with only ${entry.name}.css`} />
+
+      <h2 id="css-variables">CSS variables</h2>
+      <p>Tokens this component reads. Change them in <code>tokens.css</code> or with the <a href="/themes/">theme generator</a>.</p>
+      <p class="d-flex flex-wrap gap-2">{manifest.cssVars.map((v) => <code>{v}</code>)}</p>
+      {manifest.registryDependencies.length > 0 && (
+        <p>Depends on: {manifest.registryDependencies.map((d, i) => <>{i > 0 && ", "}<a href={`/docs/components/${d}/`}>{d}</a></>)}. <code>add</code> installs dependencies automatically.</p>
+      )}
+    </>
+  ) : (
+    <>
+      <div class="alert" role="status">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div class="alert-title">Not built yet</div>
+        <div class="alert-description">{entry.title} is planned for {entry.release}. This page shows how it will be built.</div>
+      </div>
+      <dl class="docs-meta">
+        <dt>Tier</dt><dd>{tierLabel(entry.tier)}</dd>
+        <dt>Batch</dt><dd>{entry.batch ?? "after v1.0"}</dd>
+        <dt>Bootstrap 6 base</dt><dd set:html={md(entry.bootstrap)} />
+        <dt>Approach</dt><dd set:html={md(entry.approach)} />
+        <dt>Target release</dt><dd>{entry.release}</dd>
+      </dl>
+      <p>Track progress on the <a href="/docs/roadmap/">roadmap</a>. Reference: <a href={`https://ui.shadcn.com/docs/components`}>shadcn/ui components</a>.</p>
+    </>
+  )}
+</DocsLayout>

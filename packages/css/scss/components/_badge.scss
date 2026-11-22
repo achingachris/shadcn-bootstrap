@@ -1,0 +1,55 @@
+// Badge: shadcn variants on Bootstrap 6's .badge.
+//
+//   default      .badge  (or .badge.theme-primary)
+//   secondary    .badge.theme-secondary
+//   destructive  .badge.theme-danger
+//   outline      .badge.badge-outline
+@layer custom {
+  .badge {
+    --bs-badge-gap: 0.25rem;
+    --bs-badge-padding-x: 0.5rem;
+    --bs-badge-padding-y: 0.125rem;
+    --bs-badge-font-size: 0.75rem;
+    --bs-badge-font-weight: 500;
+    --bs-badge-color: var(--primary-foreground);
+    --bs-badge-bg: var(--primary);
+    --bs-badge-border-color: transparent;
+    --bs-badge-border-radius: var(--bs-radius-4);
+
+    min-height: 0;
+    line-height: 1rem;
+    overflow: hidden;
+    transition: color 0.15s, background-color 0.15s, box-shadow 0.15s;
+
+    svg {
+      flex-shrink: 0;
+      width: 0.75rem;
+      height: 0.75rem;
+      pointer-events: none;
+    }
+
+    &:focus-visible {
+      outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring-color);
+      outline-offset: 0;
+    }
+  }
+
+  a.badge:hover {
+    background-color: color-mix(in oklch, var(--bs-theme-bg, var(--bs-badge-bg)) 90%, transparent);
+  }
+
+  a.badge.theme-secondary:hover {
+    background-color: color-mix(in oklch, var(--bs-theme-bg) 80%, transparent);
+  }
+
+  .badge-outline:not([class*="theme-"]) {
+    --bs-badge-color: var(--foreground);
+    --bs-badge-bg: transparent;
+    --bs-badge-border-color: var(--border);
+
+    &:is(a):hover {
+      color: var(--accent-foreground);
+      background-color: var(--accent);
+    }
+  }
+}

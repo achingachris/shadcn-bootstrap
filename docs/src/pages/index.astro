@@ -1,0 +1,114 @@
+---
+import Base from "../layouts/Base.astro";
+import Example from "../components/Example.astro";
+import { catalog } from "../lib/catalog";
+import { bootstrap, shadcnBootstrapCdn, RELEASE_VERSION } from "../lib/build-info";
+
+const built = catalog.components.filter((c) => c.status === "built").length;
+const quickstart = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="${bootstrap.css.href}"
+        integrity="${bootstrap.css.integrity}" crossorigin="anonymous">
+  <link rel="stylesheet" href="${shadcnBootstrapCdn()}">
+</head>
+<body>
+  <div class="card" style="width: 22rem">
+    <div class="card-header">
+      <h3 class="card-title">Create project</h3>
+      <p class="card-description">Deploy your new project in one click.</p>
+    </div>
+    <div class="card-body">
+      <label class="form-label" for="name">Name</label>
+      <input class="form-control" id="name" placeholder="Name of your project">
+    </div>
+    <div class="card-footer justify-content-between">
+      <button class="btn btn-outline">Cancel</button>
+      <button class="btn btn-solid theme-primary">Deploy</button>
+    </div>
+  </div>
+</body>
+</html>`;
+---
+<Base title="shadcn-bootstrap">
+  <main id="main" class="docs-container landing">
+    <section class="landing-hero">
+      <span class="badge badge-outline">Bootstrap {bootstrap.version} · {built} of {catalog.components.length} components built</span>
+      <h1>The shadcn/ui look for Bootstrap 6.</h1>
+      <p class="docs-lead">
+        Tokens, a bridge onto Bootstrap's <code>--bs-*</code> variables, and per-component CSS you copy into your project and own.
+        Works with any HTML: static sites, Django, Rails, Laravel or a JS framework.
+      </p>
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <a class="btn btn-solid theme-primary" href="/docs/">Get started</a>
+        <a class="btn btn-outline" href="/docs/components/">Browse components</a>
+      </div>
+      <p class="landing-note">Unofficial community port. Not affiliated with shadcn.</p>
+    </section>
+
+    <section class="landing-showcase" aria-label="Component showcase">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Notifications</h2>
+          <p class="card-description">Choose what you want to hear about.</p>
+        </div>
+        <div class="card-body d-grid gap-3">
+          <div class="d-flex align-items-center gap-2"><div class="switch"><input type="checkbox" role="switch" id="lp-a" checked></div><label for="lp-a">Product updates</label></div>
+          <div class="d-flex align-items-center gap-2"><div class="switch"><input type="checkbox" role="switch" id="lp-b"></div><label for="lp-b">Security alerts</label></div>
+          <div class="d-flex align-items-center gap-2"><input class="check" type="checkbox" id="lp-c" checked><label for="lp-c">Email digest</label></div>
+        </div>
+        <div class="card-footer"><button class="btn btn-solid theme-primary w-100">Save preferences</button></div>
+      </div>
+      <div class="d-grid gap-3 align-content-start">
+        <div class="alert" role="status">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <div class="alert-title">Deployed</div>
+          <div class="alert-description">Your site is live on the edge.</div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Invite your team</h2>
+            <p class="card-description">Add members by email.</p>
+          </div>
+          <div class="card-body">
+            <div class="d-flex gap-2">
+              <input class="form-control" type="email" placeholder="name@example.com" aria-label="Email">
+              <button class="btn btn-outline">Invite</button>
+            </div>
+          </div>
+          <div class="card-footer flex-wrap">
+            <span class="badge">Owner</span><span class="badge theme-secondary">Editor</span><span class="badge badge-outline">Viewer</span><span class="badge theme-danger">Removed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-quickstart">
+      <h2>Two links and plain Bootstrap markup</h2>
+      <p class="docs-lead">Load Bootstrap 6, then shadcn-bootstrap. The page below is the snippet, rendered.</p>
+      <Example
+        code={quickstart}
+        document
+        title="index.html"
+        caption={`The shadcn-bootstrap link points at ${RELEASE_VERSION}, which isn't on jsDelivr yet; the preview uses the local build in its place.`}
+        minHeight="22rem"
+      />
+    </section>
+  </main>
+</Base>
+
+<style is:global>
+  @layer custom {
+    .landing { padding-block: 3rem 5rem; }
+    .landing-hero { display: grid; justify-items: center; gap: 1rem; max-width: 46rem; margin-inline: auto; text-align: center; }
+    .landing-hero h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.035em; margin: 0; }
+    .landing-hero .docs-lead { margin: 0; }
+    .landing-note { font-size: 0.8125rem; color: var(--muted-foreground); margin: 0; }
+    .landing-showcase { display: grid; gap: 1rem; max-width: 52rem; margin: 3.5rem auto 0; }
+    @media (width >= 768px) { .landing-showcase { grid-template-columns: 1fr 1fr; } }
+    .landing-quickstart { max-width: 52rem; margin: 4.5rem auto 0; }
+    .landing-quickstart h2 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+  }
+</style>

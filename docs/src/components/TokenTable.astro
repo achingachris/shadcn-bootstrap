@@ -1,0 +1,22 @@
+---
+import { resolveTheme, DEFAULT_THEME } from "../../../packages/css/themes/themes.mjs";
+const { tokens } = resolveTheme(DEFAULT_THEME);
+const groups = Object.entries(tokens).filter(([n]) => !n.startsWith("chart") && !n.startsWith("sidebar"));
+---
+<div class="docs-table-wrap">
+  <table class="docs-table">
+    <thead><tr><th>Token</th><th>Now</th><th>Light</th><th>Dark</th></tr></thead>
+    <tbody>
+      {groups.map(([name, [light, dark]]) => (
+        <tr>
+          <td><code>--{name}</code></td>
+          <td><span class="docs-swatch" style={`background: var(--${name})`} title={`var(--${name})`}></span></td>
+          <td><span class="docs-swatch" style={`background: ${light}`}></span> <code class="small">{light}</code></td>
+          <td><span class="docs-swatch" style={`background: ${dark}`}></span> <code class="small">{dark}</code></td>
+        </tr>
+      ))}
+      <tr><td><code>--radius</code></td><td colspan="3"><code>{DEFAULT_THEME.radius}rem</code>. Bootstrap's <code>--bs-radius-1…9</code> are derived from it.</td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small fg-3">Also defined: <code>--chart-1…5</code> and <code>--sidebar-*</code>, used by components in later batches.</p>

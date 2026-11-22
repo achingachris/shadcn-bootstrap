@@ -1,0 +1,672 @@
+{
+  "$schema": "./schema.json#/$defs/catalog",
+  "source": "https://ui.shadcn.com/docs/components (checked 22 Nov 2026)",
+  "tiers": {
+    "1": "CSS on existing Bootstrap parts",
+    "2": "Restyle Bootstrap 6 JS components",
+    "3": "Needs JS that Bootstrap doesn't ship",
+    "4": "Newest shadcn additions"
+  },
+  "components": [
+    {
+      "name": "button",
+      "title": "Button",
+      "tier": 1,
+      "batch": 0,
+      "status": "built",
+      "release": "0.1.0",
+      "bootstrap": "`.btn`",
+      "approach": "`--bs-btn-*` overrides; variants default/secondary/destructive/outline/ghost/link; sizes sm/lg/icon"
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "tier": 1,
+      "batch": 0,
+      "status": "built",
+      "release": "0.1.0",
+      "bootstrap": "`.badge`",
+      "approach": "default/secondary/destructive/outline variants"
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "tier": 1,
+      "batch": 0,
+      "status": "built",
+      "release": "0.1.0",
+      "bootstrap": "`.card`",
+      "approach": "header/title/description/content/footer spacing, card tokens"
+    },
+    {
+      "name": "alert",
+      "title": "Alert",
+      "tier": 1,
+      "batch": 0,
+      "status": "built",
+      "release": "0.1.0",
+      "bootstrap": "`.alert`",
+      "approach": "default + destructive, icon slot via grid"
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "tier": 1,
+      "batch": 0,
+      "status": "built",
+      "release": "0.1.0",
+      "bootstrap": "`.form-control`",
+      "approach": "height, input border, ring on focus, file input"
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "tier": 1,
+      "batch": 0,
+      "status": "built",
+      "release": "0.1.0",
+      "bootstrap": "`.form-label`",
+      "approach": "weight/size, disabled peer state"
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "tier": 1,
+      "batch": 0,
+      "status": "built",
+      "release": "0.1.0",
+      "bootstrap": "`.check`",
+      "approach": "`--bs-check-*` overrides, indeterminate"
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "tier": 1,
+      "batch": 0,
+      "status": "built",
+      "release": "0.1.0",
+      "bootstrap": "`.switch`",
+      "approach": "track/thumb sizes, sm/lg"
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "tier": 1,
+      "batch": 1,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.form-control`",
+      "approach": "`field-sizing: content` auto-grow"
+    },
+    {
+      "name": "native-select",
+      "title": "Native Select",
+      "tier": 1,
+      "batch": 1,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`select.form-control`",
+      "approach": "caret, height parity with Input"
+    },
+    {
+      "name": "radio-group",
+      "title": "Radio Group",
+      "tier": 1,
+      "batch": 1,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.radio`",
+      "approach": "stacked group layout"
+    },
+    {
+      "name": "slider",
+      "title": "Slider",
+      "tier": 1,
+      "batch": 1,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.form-range`",
+      "approach": "track/thumb on shadcn tokens"
+    },
+    {
+      "name": "field",
+      "title": "Field",
+      "tier": 1,
+      "batch": 1,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.form-field`, `.form-label`, validation",
+      "approach": "field/label/description/error layout, horizontal variant"
+    },
+    {
+      "name": "input-group",
+      "title": "Input Group",
+      "tier": 1,
+      "batch": 1,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.input-group`",
+      "approach": "addons, buttons, icons inside"
+    },
+    {
+      "name": "toggle",
+      "title": "Toggle",
+      "tier": 1,
+      "batch": 1,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.btn-check` + `.btn`",
+      "approach": "pressed state, outline variant"
+    },
+    {
+      "name": "toggle-group",
+      "title": "Toggle Group",
+      "tier": 1,
+      "batch": 1,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.btn-group` + `.btn-check`",
+      "approach": "single/multiple, joined borders"
+    },
+    {
+      "name": "button-group",
+      "title": "Button Group",
+      "tier": 1,
+      "batch": 1,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.btn-group`",
+      "approach": "joined radii, separator, vertical"
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.avatar`, `.avatar-stack`",
+      "approach": "round, fallback initials, group"
+    },
+    {
+      "name": "aspect-ratio",
+      "title": "Aspect Ratio",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.ratio-*`",
+      "approach": "docs + `aspect-ratio` helper"
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.breadcrumb`",
+      "approach": "separators, ellipsis, muted links"
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.pagination`",
+      "approach": "ghost/outline buttons, active state"
+    },
+    {
+      "name": "progress",
+      "title": "Progress",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.progress`",
+      "approach": "thin track, primary bar"
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.placeholder`",
+      "approach": "muted pulse"
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.spinner-border` / `.spinner-rotate`",
+      "approach": "sizes, muted color"
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`hr`, `.vr`",
+      "approach": "horizontal/vertical, border token"
+    },
+    {
+      "name": "kbd",
+      "title": "Kbd",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`kbd` element (custom)",
+      "approach": "key cap style, group"
+    },
+    {
+      "name": "table",
+      "title": "Table",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.table`",
+      "approach": "header/row/hover/caption/footer"
+    },
+    {
+      "name": "item",
+      "title": "Item",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.list-group`",
+      "approach": "media/content/actions layout, variants"
+    },
+    {
+      "name": "empty",
+      "title": "Empty",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "custom `.empty`",
+      "approach": "icon/title/description/actions"
+    },
+    {
+      "name": "scroll-area",
+      "title": "Scroll Area",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "custom `.scroll-area`",
+      "approach": "`scrollbar-width` / `scrollbar-color`"
+    },
+    {
+      "name": "code-block",
+      "title": "Code Block",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`pre` / `code` (custom)",
+      "approach": "muted bg, line numbers, copy-button slot"
+    },
+    {
+      "name": "typography",
+      "title": "Typography",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.prose` + type utilities",
+      "approach": "h1–h4, lead, muted, blockquote, lists, inline code"
+    },
+    {
+      "name": "direction",
+      "title": "Direction",
+      "tier": 1,
+      "batch": 2,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`dir=\"rtl\"`",
+      "approach": "logical properties everywhere; RTL pass over all built components"
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "tier": 2,
+      "batch": 3,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.dialog`",
+      "approach": "overlay, centered content, header/footer, close"
+    },
+    {
+      "name": "alert-dialog",
+      "title": "Alert Dialog",
+      "tier": 2,
+      "batch": 3,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.dialog` (static)",
+      "approach": "no dismiss on backdrop, action/cancel footer"
+    },
+    {
+      "name": "drawer",
+      "title": "Drawer",
+      "tier": 2,
+      "batch": 3,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.drawer-bottom`",
+      "approach": "handle bar, rounded top"
+    },
+    {
+      "name": "sheet",
+      "title": "Sheet",
+      "tier": 2,
+      "batch": 3,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.drawer-start/end/top/bottom`",
+      "approach": "side sheets, widths"
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "tier": 2,
+      "batch": 3,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.popover`",
+      "approach": "popover tokens, shadow, arrow off"
+    },
+    {
+      "name": "hover-card",
+      "title": "Hover Card",
+      "tier": 2,
+      "batch": 3,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.popover` + hover trigger",
+      "approach": "delay settings documented"
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "tier": 2,
+      "batch": 3,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.tooltip`",
+      "approach": "primary bg, small text"
+    },
+    {
+      "name": "toast",
+      "title": "Toast",
+      "tier": 2,
+      "batch": 3,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.toast`",
+      "approach": "Sonner-like stack, variants (JS queue is an open decision)"
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown Menu",
+      "tier": 2,
+      "batch": 4,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.menu`",
+      "approach": "items, shortcuts, checks, sub-menus, separators"
+    },
+    {
+      "name": "context-menu",
+      "title": "Context Menu",
+      "tier": 2,
+      "batch": 4,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.menu` on `contextmenu`",
+      "approach": "trigger docs + tiny helper snippet"
+    },
+    {
+      "name": "menubar",
+      "title": "Menubar",
+      "tier": 2,
+      "batch": 4,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.navbar` + `.menu`",
+      "approach": "bar with triggers"
+    },
+    {
+      "name": "navigation-menu",
+      "title": "Navigation Menu",
+      "tier": 2,
+      "batch": 4,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.nav` + `.menu`",
+      "approach": "mega-menu panels"
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "tier": 2,
+      "batch": 4,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.menu` / `.combobox`",
+      "approach": "trigger styled like Input"
+    },
+    {
+      "name": "combobox",
+      "title": "Combobox",
+      "tier": 2,
+      "batch": 4,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.combobox`",
+      "approach": "search input, empty state"
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "tier": 2,
+      "batch": 4,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.nav-tabs` + `.tab-content`",
+      "approach": "muted pill list (shadcn style)"
+    },
+    {
+      "name": "sidebar",
+      "title": "Sidebar",
+      "tier": 2,
+      "batch": 4,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.drawer` + `.nav`",
+      "approach": "collapsible, mobile drawer, sidebar tokens"
+    },
+    {
+      "name": "accordion",
+      "title": "Accordion",
+      "tier": 2,
+      "batch": 5,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.accordion`, `details`/`summary`",
+      "approach": "borderless items, chevron"
+    },
+    {
+      "name": "collapsible",
+      "title": "Collapsible",
+      "tier": 2,
+      "batch": 5,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.collapse`",
+      "approach": "trigger + content"
+    },
+    {
+      "name": "carousel",
+      "title": "Carousel",
+      "tier": 2,
+      "batch": 5,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.carousel`",
+      "approach": "outline prev/next buttons"
+    },
+    {
+      "name": "input-otp",
+      "title": "Input OTP",
+      "tier": 2,
+      "batch": 5,
+      "status": "planned",
+      "release": "1.0.0",
+      "bootstrap": "`.otp`, `.otp-slot`",
+      "approach": "joined slots, separator"
+    },
+    {
+      "name": "calendar",
+      "title": "Calendar",
+      "tier": 3,
+      "batch": null,
+      "status": "planned",
+      "release": "1.1.0",
+      "bootstrap": "none (Bootstrap 6 ships `_datepicker.scss`; evaluate first)",
+      "approach": "CSS + markup first; recommend a behaviour library"
+    },
+    {
+      "name": "chart",
+      "title": "Chart",
+      "tier": 3,
+      "batch": null,
+      "status": "planned",
+      "release": "1.1.0",
+      "bootstrap": "theme tokens for a chart library",
+      "approach": "`--chart-1…5` tokens mapped onto a chart library's theme"
+    },
+    {
+      "name": "command",
+      "title": "Command",
+      "tier": 3,
+      "batch": null,
+      "status": "planned",
+      "release": "1.1.0",
+      "bootstrap": "custom",
+      "approach": "CSS + markup first; small ESM helper later"
+    },
+    {
+      "name": "data-table",
+      "title": "Data Table",
+      "tier": 3,
+      "batch": null,
+      "status": "planned",
+      "release": "1.1.0",
+      "bootstrap": "`.table` + sorting/filtering JS",
+      "approach": "CSS on Table; recommend a table behaviour library"
+    },
+    {
+      "name": "date-picker",
+      "title": "Date Picker",
+      "tier": 3,
+      "batch": null,
+      "status": "planned",
+      "release": "1.1.0",
+      "bootstrap": "Calendar + Popover",
+      "approach": "depends on Calendar and Popover"
+    },
+    {
+      "name": "resizable",
+      "title": "Resizable",
+      "tier": 3,
+      "batch": null,
+      "status": "planned",
+      "release": "1.1.0",
+      "bootstrap": "custom",
+      "approach": "CSS + markup first; small ESM helper later"
+    },
+    {
+      "name": "attachment",
+      "title": "Attachment",
+      "tier": 4,
+      "batch": null,
+      "status": "planned",
+      "release": "1.x",
+      "bootstrap": "to be decided",
+      "approach": "Read its purpose in the shadcn source first"
+    },
+    {
+      "name": "bubble",
+      "title": "Bubble",
+      "tier": 4,
+      "batch": null,
+      "status": "planned",
+      "release": "1.x",
+      "bootstrap": "to be decided",
+      "approach": "Read its purpose in the shadcn source first"
+    },
+    {
+      "name": "marker",
+      "title": "Marker",
+      "tier": 4,
+      "batch": null,
+      "status": "planned",
+      "release": "1.x",
+      "bootstrap": "to be decided",
+      "approach": "Read its purpose in the shadcn source first"
+    },
+    {
+      "name": "message",
+      "title": "Message",
+      "tier": 4,
+      "batch": null,
+      "status": "planned",
+      "release": "1.x",
+      "bootstrap": "to be decided",
+      "approach": "Read its purpose in the shadcn source first"
+    },
+    {
+      "name": "message-scroller",
+      "title": "Message Scroller",
+      "tier": 4,
+      "batch": null,
+      "status": "planned",
+      "release": "1.x",
+      "bootstrap": "to be decided",
+      "approach": "Read its purpose in the shadcn source first"
+    },
+    {
+      "name": "questionnaire",
+      "title": "Questionnaire",
+      "tier": 4,
+      "batch": null,
+      "status": "planned",
+      "release": "1.x",
+      "bootstrap": "to be decided",
+      "approach": "Read its purpose in the shadcn source first"
+    },
+    {
+      "name": "trace",
+      "title": "Trace",
+      "tier": 4,
+      "batch": null,
+      "status": "planned",
+      "release": "1.x",
+      "bootstrap": "to be decided",
+      "approach": "Read its purpose in the shadcn source first"
+    }
+  ]
+}
