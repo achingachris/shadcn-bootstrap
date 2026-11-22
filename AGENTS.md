@@ -112,6 +112,16 @@ Say "unofficial community port" wherever the project describes itself. Don't use
 
 ## Git and releases
 
-- Conventional Commits (`feat(registry): …`, `fix(docs): …`). One concern per commit.
-- Branch from a freshly pulled `main`; open a PR. `main` is the default branch.
-- Releases: `npm version <x.y.z>`, then `npm publish --access public`. The account uses npm **staged publishing**: a new version waits for maintainer approval before it's live. Merge release PRs with a merge commit (not squash) so the version tag stays on `main`.
+**Branches:** feature branch → `dev` → `main`.
+
+- `dev` is the default branch. Branch from a freshly pulled `dev` and open PRs **into `dev`**. PRs are squash-merged, so the **PR title** becomes the commit message on `dev` and must be a Conventional Commit (`feat(registry): …`, `fix(docs): …`). Release notes and version bumps come from these.
+- Never open a PR into `main`; the maintainer rejects them. Only the maintainer merges `dev` → `main`, with a merge commit so each Conventional Commit reaches `main` intact. The `source-branch` check (`.github/workflows/pr-target.yml`) flags any PR into `main` that isn't from `dev` or release-please.
+- A ruleset on `main` blocks direct pushes, force pushes and deletion for everyone: `main` only changes through merge-commit PRs. It deliberately requires no status checks, because release-please's PRs don't trigger CI.
+
+**Releases are automated with release-please** (`.github/workflows/publish.yml`, `release-please-config.json`, `.release-please-manifest.json`):
+
+1. Each push to `main` updates a release PR that bumps `package.json`, updates `.release-please-manifest.json` and writes `CHANGELOG.md`. Before 1.0, `feat:` and breaking changes bump the minor version and `fix:` bumps the patch; `docs:`, `chore:`, `ci:` and the like don't trigger a release.
+2. When the maintainer merges the release PR, the same workflow tags the release, creates the GitHub release and runs `npm publish` through npm trusted publishing (OIDC, no token). npm's staged publishing may hold the version for the maintainer's approval.
+3. Afterwards, `main` is merged back into `dev` so `dev` has the new version and changelog.
+
+Never edit `version` in `package.json`, `.release-please-manifest.json` or `CHANGELOG.md` by hand, never run `npm version` or `npm publish` yourself, and keep the workflow file named `publish.yml` (npm's trusted publisher is registered for that name).
