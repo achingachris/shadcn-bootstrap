@@ -7,8 +7,14 @@
 // - `preview`: markup to render when `code` itself isn't markup (e.g. a CSS @import file).
 // - `document`: `code` is a full HTML page; it renders as-is in an iframe.
 // - `base`: which shadcn-bootstrap CSS the iframe loads before `css` ("none" = stock Bootstrap).
+// - `frameworks`: show the snippet as component usage for React / Next.js, Vue and Angular
+//   (converted from the HTML: <Button variant="outline">…), with the HTML for plain projects.
+//   One tab choice applies to every example on the site.
+// - `js`: load Bootstrap 6's JavaScript in the preview frame.
 import CodeBlock from "./CodeBlock.astro";
 import { frameDoc } from "../lib/build-info";
+import FrameworkTabs from "./FrameworkTabs.astro";
+import { toFrameworks } from "../lib/frameworks";
 
 interface Props {
   code: string;
@@ -23,6 +29,8 @@ interface Props {
   base?: "bundle" | "bridge" | "none";
   align?: "center" | "start";
   minHeight?: string;
+  frameworks?: boolean;
+  js?: boolean;
 }
 
 const {
@@ -37,12 +45,15 @@ const {
   base = "bundle",
   align = "center",
   minHeight = "10rem",
+  frameworks = false,
+  js = false,
 } = Astro.props;
 
 const source = code.replace(/^\n+|\s+$/g, "");
 const previewHtml = (preview ?? source).trim();
-const useFrame = Astro.props.frame ?? (Boolean(css) || document || base !== "bundle" || lang !== "html");
-const srcdoc = useFrame ? frameDoc({ html: previewHtml, css, base, document }) : "";
+const useFrame = Astro.props.frame ?? (Boolean(css) || document || js || base !== "bundle" || lang !== "html");
+const srcdoc = useFrame ? frameDoc({ html: previewHtml, css, base, document, js }) : "";
+const fw = frameworks ? toFrameworks(source) : null;
 ---
 <figure class="docs-example" data-example>
   <div class="docs-example-bar">
@@ -60,6 +71,15 @@ const srcdoc = useFrame ? frameDoc({ html: previewHtml, css, base, document }) :
   {caption && <figcaption class="docs-example-caption">{caption}</figcaption>}
   <div class="docs-example-code">
     {css && <CodeBlock code={css} lang="css" label="CSS" />}
-    <CodeBlock code={source} lang={lang} label={label ?? (document ? "index.html" : lang.toUpperCase())} />
+    {fw ? (
+      <FrameworkTabs label="Code">
+        <CodeBlock slot="react" code={fw.react} lang="tsx" label="TSX" />
+        <CodeBlock slot="vue" code={fw.vue} lang="vue" label="Vue" />
+        <CodeBlock slot="angular" code={fw.angular} lang="html" label="Angular template" />
+        <CodeBlock slot="html" code={source} lang={lang} label="HTML (no framework)" />
+      </FrameworkTabs>
+    ) : (
+      <CodeBlock code={source} lang={lang} label={label ?? (document ? "index.html" : lang.toUpperCase())} />
+    )}
   </div>
 </figure>

@@ -1,0 +1,44 @@
+---
+layout: ../../../layouts/DocsLayout.astro
+title: Angular
+eyebrow: Frameworks
+description: Use shadcn-bootstrap components in an Angular app.
+---
+import Example from "../../../components/Example.astro";
+import Terminal from "../../../components/Terminal.astro";
+import CodeBlock from "../../../components/CodeBlock.astro";
+import { installCommand, installOutput, addCommand, demoHtml, jsDemoHtml, modeToggleHtml, angular } from "../../../lib/framework-snippets";
+
+The CLI copies standalone components and directives into `src/app/ui/`. Following Angular conventions (and spartan/ui, the Angular shadcn port), native elements get a directive, `<button sbButton variant="outline">` and `<input sbInput>`, so forms and accessibility work as usual. Composite parts are elements: `<sb-card>`, `<sb-card-header>`, `<sb-switch>`. Everything renders Bootstrap 6 classes, styled by shadcn-bootstrap's CSS.
+
+## Install
+
+<Terminal command={installCommand} output={installOutput} planned />
+
+<Terminal command="npx shadcn-bootstrap init" output={angular.init} planned />
+
+## Add components
+
+<Terminal command={addCommand} output={angular.add} planned />
+
+## Add the CSS
+
+List Bootstrap first, then shadcn-bootstrap's files, in the build target's `styles`. This is config, so it has no output of its own; the next sections show the result.
+
+<CodeBlock lang="json" label="angular.json (excerpt)" code={angular.styles} />
+
+## Load Bootstrap's JavaScript
+
+Bootstrap 6's JavaScript is ESM and reads `document`. Import it in `afterNextRender`, which only runs in the browser, so it also works with server-side rendering. It listens on `document`, so `data-bs-*` attributes then work in every template.
+
+<Example title="Output: data-bs-toggle works" label="src/app/app.ts" lang="ts" code={angular.app} preview={jsDemoHtml} js minHeight="14rem" />
+
+## Use components
+
+<Example title="Output" label="src/app/create-project.ts" lang="ts" code={angular.createProject} preview={demoHtml} minHeight="20rem" />
+
+Every component page shows its examples in the **Angular** tab.
+
+## Dark mode
+
+<Example title="Output: toggles the preview" label="src/app/mode-toggle.ts" lang="ts" code={angular.modeToggle} preview={modeToggleHtml} frame minHeight="8rem" />

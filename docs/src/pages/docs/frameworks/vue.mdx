@@ -1,0 +1,50 @@
+---
+layout: ../../../layouts/DocsLayout.astro
+title: Vue
+eyebrow: Frameworks
+description: Use shadcn-bootstrap components in a Vue 3 app built with Vite, or in Nuxt.
+---
+import Example from "../../../components/Example.astro";
+import Terminal from "../../../components/Terminal.astro";
+import CodeBlock from "../../../components/CodeBlock.astro";
+import { installCommand, installOutput, addCommand, demoHtml, jsDemoHtml, modeToggleHtml, vue } from "../../../lib/framework-snippets";
+
+The CLI copies single-file components into `src/components/ui/<name>/` and you use them like shadcn-vue: `<Button variant="outline">`, `<Card>`, `v-model` on `<Input>`, `<Checkbox>` and `<Switch>`. They render Bootstrap 6 classes, styled by shadcn-bootstrap's CSS.
+
+## Install
+
+<Terminal command={installCommand} output={installOutput} planned />
+
+<Terminal command="npx shadcn-bootstrap init" output={vue.init} planned />
+
+The components import from `@/`, so add the alias to `vite.config.ts` and `tsconfig.json` if your template doesn't have it.
+
+## Add components
+
+<Terminal command={addCommand} output={vue.add} planned />
+
+## Import CSS and JavaScript
+
+<Example title="Output: data-bs-toggle works" label="src/main.ts" lang="ts" code={vue.main} preview={jsDemoHtml} js minHeight="14rem" />
+
+Bootstrap's JavaScript listens on `document`, so `data-bs-*` attributes work in everything Vue renders later.
+
+## Use components
+
+<Example title="Output" label="src/App.vue" lang="vue" code={vue.app} preview={demoHtml} minHeight="20rem" />
+
+Every component page shows its examples in the **Vue** tab.
+
+## Dark mode
+
+<Example title="Output: toggles the preview" label="src/components/ModeToggle.vue" lang="vue" code={vue.modeToggle} preview={modeToggleHtml} frame minHeight="8rem" />
+
+## Nuxt
+
+`init` detects Nuxt and puts the CSS in `assets/css/`. Register it in `nuxt.config.ts`, Bootstrap first. This is config, so it has no output of its own:
+
+<CodeBlock lang="ts" label="nuxt.config.ts" code={vue.nuxtConfig} />
+
+Bootstrap's JavaScript reads `document`, so load it from a client-only plugin:
+
+<Example title="Output: data-bs-toggle works" label="plugins/bootstrap.client.ts" lang="ts" code={vue.nuxtPlugin} preview={jsDemoHtml} js minHeight="14rem" />

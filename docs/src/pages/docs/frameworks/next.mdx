@@ -1,0 +1,51 @@
+---
+layout: ../../../layouts/DocsLayout.astro
+title: Next.js
+eyebrow: Frameworks
+description: Use shadcn-bootstrap components in a Next.js App Router project.
+---
+import Example from "../../../components/Example.astro";
+import Terminal from "../../../components/Terminal.astro";
+import { installCommand, installOutput, addCommand, demoHtml, jsDemoHtml, modeToggleHtml, next } from "../../../lib/framework-snippets";
+
+Components work like shadcn/ui: the CLI copies `button.tsx`, `card.tsx` and so on into `components/ui/`, and you use `<Button variant="outline">`. Underneath they render Bootstrap 6 classes, styled by shadcn-bootstrap's CSS. This guide uses the App Router.
+
+## Install
+
+<Terminal command={installCommand} output={installOutput} planned />
+
+Set up the project. The CLI detects Next.js, writes the token, bridge and component CSS files plus `lib/utils.ts`, and prints the imports for your layout:
+
+<Terminal command="npx shadcn-bootstrap init" output={next.init} planned />
+
+## Add components
+
+<Terminal command={addCommand} output={next.add} planned />
+
+## Import the CSS
+
+Import Bootstrap first, then shadcn-bootstrap's files, in the root layout. Order matters: the bridge overrides Bootstrap's own `:root` variables.
+
+<Example title="Output: a page in this layout" label="app/layout.tsx" lang="tsx" code={next.layout} preview={demoHtml} minHeight="20rem" />
+
+The inline script applies a saved color mode before the first paint, and `suppressHydrationWarning` stops React warning that it changed `<html>`. See [Dark mode](#dark-mode).
+
+## Load Bootstrap's JavaScript
+
+Bootstrap 6's JavaScript is ESM and reads `document`, so it can't run on the server. Import it from a client component after hydration. It listens on `document`, so its `data-bs-*` attributes then work in every server and client component, including the shadcn-bootstrap components.
+
+<Example title="Output: data-bs-toggle works" label="app/bootstrap-client.tsx" lang="tsx" code={next.bootstrapClient} preview={jsDemoHtml} js minHeight="14rem" />
+
+## Use components
+
+The components are plain function components with no client-only code, so server components can use them.
+
+<Example title="Output" label="app/page.tsx" lang="tsx" code={next.page} preview={demoHtml} minHeight="20rem" />
+
+Every component page shows its examples in the **React / Next.js** tab.
+
+## Dark mode
+
+Tokens follow the OS by default. A toggle only sets `data-bs-theme` on `<html>`; the head script in the layout above restores it on the next visit.
+
+<Example title="Output: toggles the preview" label="components/mode-toggle.tsx" lang="tsx" code={next.modeToggle} preview={modeToggleHtml} frame minHeight="8rem" />

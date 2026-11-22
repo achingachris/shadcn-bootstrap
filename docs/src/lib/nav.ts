@@ -16,9 +16,16 @@ export const gettingStarted: NavItem[] = [
   { title: "Roadmap", href: "/docs/roadmap/" },
 ];
 
+export const frameworkNav: NavItem[] = [
+  { title: "Next.js", href: "/docs/frameworks/next/" },
+  { title: "React", href: "/docs/frameworks/react/" },
+  { title: "Vue", href: "/docs/frameworks/vue/" },
+  { title: "Angular", href: "/docs/frameworks/angular/" },
+];
+
 export const componentNav: NavItem[] = [
   { title: "Overview", href: "/docs/components/" },
   ...components.map((c) => ({ title: c.title, href: `/docs/components/${c.name}/`, status: c.status })),
 ];
 
-export const allPages: NavItem[] = [...gettingStarted, ...componentNav];
+export const allPages: NavItem[] = [...gettingStarted, ...frameworkNav, ...componentNav];

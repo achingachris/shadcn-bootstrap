@@ -70,10 +70,13 @@ export interface FrameOptions {
   /** `html` is a full document; its shadcn-bootstrap CDN <link> is swapped for the local build. */
   document?: boolean;
   theme?: "light" | "dark";
+  /** Load Bootstrap 6's JavaScript (ESM) in the frame. */
+  js?: boolean;
 }
 
 /** Builds an iframe srcdoc: Bootstrap 6 from the CDN + local shadcn-bootstrap CSS + the snippet. */
-export function frameDoc({ html, css = "", base = "bundle", document = false, theme }: FrameOptions): string {
+export function frameDoc({ html, css = "", base = "bundle", document = false, theme, js = false }: FrameOptions): string {
+  const bsJs = js ? `<script type="module" src="${bootstrap.js.src}" integrity="${bootstrap.js.integrity}" crossorigin="anonymous"></script>` : "";
   const local = base === "bundle" ? bundleCss() : base === "bridge" ? `${tokensCss()}\n${bridgeCss()}` : "";
   const frameCss = `<style>html,body{background:transparent}body{margin:0;padding:2.5rem 1.5rem;display:flex;align-items:center;justify-content:center;min-height:100vh;box-sizing:border-box}body>*{max-width:100%}</style>`;
   // Follow the docs page's color mode (frames are same-origin srcdoc documents).
@@ -86,5 +89,5 @@ export function frameDoc({ html, css = "", base = "bundle", document = false, th
     );
     return swapped.replace("</head>", `${mode}${FONTS}${frameCss}${css ? `<style>${css}</style>` : ""}</head>`).replace("</body>", `${resize}</body>`);
   }
-  return `<!doctype html><html lang="en"${theme ? ` data-bs-theme="${theme}"` : ""}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">${mode}${FONTS}<link rel="stylesheet" href="${bootstrap.css.href}" integrity="${bootstrap.css.integrity}" crossorigin="anonymous">${local ? `<style>${local}</style>` : ""}${css ? `<style>${css}</style>` : ""}${frameCss}</head><body>${html}${resize}</body></html>`;
+  return `<!doctype html><html lang="en"${theme ? ` data-bs-theme="${theme}"` : ""}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">${mode}${FONTS}<link rel="stylesheet" href="${bootstrap.css.href}" integrity="${bootstrap.css.integrity}" crossorigin="anonymous">${local ? `<style>${local}</style>` : ""}${css ? `<style>${css}</style>` : ""}${frameCss}</head><body>${html}${bsJs}${resize}</body></html>`;
 }

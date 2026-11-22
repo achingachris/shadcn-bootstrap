@@ -441,6 +441,62 @@
     }
   }
 
+  // Syntax switch inside examples
+  .docs-syntax-tabs {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.375rem 0.5rem 0;
+    background-color: var(--bs-bg-1);
+    border-bottom: 1px solid var(--border);
+
+    button {
+      padding: 0.375rem 0.625rem;
+      margin-bottom: -1px;
+      font-size: 0.8125rem;
+      color: var(--muted-foreground);
+      background: none;
+      border: 0;
+      border-bottom: 2px solid transparent;
+
+      &[aria-selected="true"] {
+        color: var(--foreground);
+        border-bottom-color: var(--foreground);
+      }
+
+      &:focus-visible {
+        outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring-color);
+        border-radius: var(--bs-radius-3);
+      }
+    }
+  }
+
+  .docs-syntax > [role="tabpanel"] > .docs-code,
+  .docs-syntax > [role="tabpanel"] > .docs-terminal {
+    margin-top: 0;
+  }
+
+  .docs-syntax:not(.docs-example-code .docs-syntax) {
+    margin-block: 1.25rem 2rem;
+
+    .docs-syntax-tabs {
+      background: none;
+      padding-inline: 0;
+    }
+
+    [role="tabpanel"] {
+      padding-top: 0.75rem;
+    }
+  }
+
+  .docs-tab-note {
+    padding: 1rem;
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    border: 1px dashed var(--border);
+    border-radius: var(--bs-radius-6);
+  }
+
   // Code blocks (Shiki dual theme via CSS variables)
   .docs-code {
     margin-block: 1rem 1.5rem;

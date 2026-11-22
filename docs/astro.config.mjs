@@ -7,8 +7,9 @@ const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 
 // Docs rule: every snippet shows its output. HTML/CSS snippets go through <Example>
 // (rendered output above the code) and shell commands through <Terminal> (output below).
+// Framework code (JSX/TSX, Vue SFCs) also goes through <Example> with its rendered output.
 // A bare fenced block for any of those languages in an .mdx page fails the build.
-const BANNED_FENCE = /^\s*(`{3,}|~{3,})\s*(html|css|scss|sass|bash|sh|shell|zsh|console)\b/im;
+const BANNED_FENCE = /^\s*(`{3,}|~{3,})\s*(html|css|scss|sass|jsx|tsx|vue|bash|sh|shell|zsh|console)\b/im;
 
 /** @returns {import("vite").Plugin} */
 function snippetsNeedOutput() {
@@ -21,7 +22,7 @@ function snippetsNeedOutput() {
       if (match) {
         const line = code.slice(0, match.index).split("\n").length;
         this.error(
-          `${id}:${line}: bare \`\`\`${match[2]} fence. Snippets must show their output: use <Example> for HTML/CSS or <Terminal> for commands.`,
+          `${id}:${line}: bare \`\`\`${match[2]} fence. Snippets must show their output: use <Example> for HTML/CSS/JSX/Vue or <Terminal> for commands.`,
         );
       }
     },

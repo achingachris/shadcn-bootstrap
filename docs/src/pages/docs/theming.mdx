@@ -8,6 +8,37 @@ import TokenTable from "../../components/TokenTable.astro";
 import { renderTheme } from "../../../../packages/css/themes/themes.mjs";
 import { shadcnBootstrapCdn } from "../../lib/build-info";
 
+export const snippet1 = `:root {
+  --primary: light-dark(oklch(0.546 0.245 262.881), oklch(0.623 0.214 259.815));
+  --primary-foreground: oklch(0.97 0.014 254.604);
+  --ring: var(--primary);
+  --radius: 1rem;
+}`;
+export const snippet2 = `:root {
+  --warning: light-dark(oklch(0.769 0.188 70.08), oklch(0.828 0.189 84.429));
+  --warning-foreground: oklch(0.279 0.077 45.635);
+
+  --bs-warning-bg: var(--warning);
+  --bs-warning-contrast: var(--warning-foreground);
+  --bs-warning-fg: light-dark(oklch(0.555 0.163 48.998), var(--warning));
+  --bs-warning-bg-subtle: color-mix(in oklch, var(--warning) 15%, var(--background));
+  --bs-warning-border: color-mix(in oklch, var(--warning) 50%, var(--background));
+  --bs-warning-focus-ring: color-mix(in oklch, var(--warning) 50%, transparent);
+}`;
+export const snippet3 = `<div class="d-flex flex-wrap gap-2 align-items-center">
+  <button class="btn btn-solid theme-warning">Warning</button>
+  <span class="badge theme-warning">Pending</span>
+</div>`;
+export const snippet4 = `[data-sb-theme="rose"] {
+  --primary: light-dark(oklch(0.586 0.253 17.585), oklch(0.645 0.246 16.439));
+  --primary-foreground: oklch(0.969 0.015 12.422);
+  --ring: var(--primary);
+}`;
+export const snippet5 = `<div class="d-flex flex-wrap gap-3">
+  <div class="card p-4"><button class="btn btn-solid theme-primary">Default</button></div>
+  <div class="card p-4" data-sb-theme="rose"><button class="btn btn-solid theme-primary">Rose</button></div>
+</div>`;
+
 shadcn-bootstrap uses shadcn's token names. Components read them directly, and the bridge maps them onto Bootstrap 6's `--bs-*` variables, so Bootstrap components you haven't added CSS for follow too.
 
 ## Tokens
@@ -37,14 +68,10 @@ export const demo = `<div class="d-grid gap-3" style="width: 20rem">
 
 <Example
   title="Blue primary, larger radius"
-  css={`:root {
-  --primary: light-dark(oklch(0.546 0.245 262.881), oklch(0.623 0.214 259.815));
-  --primary-foreground: oklch(0.97 0.014 254.604);
-  --ring: var(--primary);
-  --radius: 1rem;
-}`}
+  css={snippet1}
   code={demo}
   minHeight="14rem"
+  frameworks
 />
 
 ## Base colors
@@ -68,21 +95,9 @@ Bootstrap 6 components accept `.theme-*` classes. To give one a shadcn-style col
 
 <Example
   title="A warning color"
-  css={`:root {
-  --warning: light-dark(oklch(0.769 0.188 70.08), oklch(0.828 0.189 84.429));
-  --warning-foreground: oklch(0.279 0.077 45.635);
-
-  --bs-warning-bg: var(--warning);
-  --bs-warning-contrast: var(--warning-foreground);
-  --bs-warning-fg: light-dark(oklch(0.555 0.163 48.998), var(--warning));
-  --bs-warning-bg-subtle: color-mix(in oklch, var(--warning) 15%, var(--background));
-  --bs-warning-border: color-mix(in oklch, var(--warning) 50%, var(--background));
-  --bs-warning-focus-ring: color-mix(in oklch, var(--warning) 50%, transparent);
-}`}
-  code={`<div class="d-flex flex-wrap gap-2 align-items-center">
-  <button class="btn btn-solid theme-warning">Warning</button>
-  <span class="badge theme-warning">Pending</span>
-</div>`}
+  css={snippet2}
+  code={snippet3}
+  frameworks
 />
 
 ## Scope a theme to part of a page
@@ -91,13 +106,7 @@ Put tokens on an element with a `data-sb-theme` attribute. The bridge re-applies
 
 <Example
   title="Scoped theme"
-  css={`[data-sb-theme="rose"] {
-  --primary: light-dark(oklch(0.586 0.253 17.585), oklch(0.645 0.246 16.439));
-  --primary-foreground: oklch(0.969 0.015 12.422);
-  --ring: var(--primary);
-}`}
-  code={`<div class="d-flex flex-wrap gap-3">
-  <div class="card p-4"><button class="btn btn-solid theme-primary">Default</button></div>
-  <div class="card p-4" data-sb-theme="rose"><button class="btn btn-solid theme-primary">Rose</button></div>
-</div>`}
+  css={snippet4}
+  code={snippet5}
+  frameworks
 />

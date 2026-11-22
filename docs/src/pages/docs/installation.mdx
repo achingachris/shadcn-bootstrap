@@ -8,7 +8,18 @@ import Terminal from "../../components/Terminal.astro";
 import { bootstrap, shadcnBootstrapCdn, RELEASE_VERSION } from "../../lib/build-info";
 import { addOutput } from "../../lib/cli-output";
 
+export const snippet1 = `✔ Wrote components.json
+✔ Created css/tokens.css
+✔ Created css/bridge.css
+
+Add these to your <head>, Bootstrap first:
+  <link rel="stylesheet" href="${bootstrap.css.href}" integrity="${bootstrap.css.integrity}" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/bridge.css">`;
+
 > shadcn-bootstrap isn't on npm yet. Snippets use the first release, **{RELEASE_VERSION}**; until it's published, every preview on this page uses the local build in place of the CDN file.
+
+Using a framework? Follow its guide instead: [Next.js](/docs/frameworks/next/), [React](/docs/frameworks/react/), [Vue](/docs/frameworks/vue/) or [Angular](/docs/frameworks/angular/). They cover the CLI, the components, CSS imports, loading Bootstrap's JavaScript on the client, and dark mode. This page covers plain HTML projects and the parts every setup shares.
 
 ## Requirements
 
@@ -67,21 +78,14 @@ export const importCss = `@import "bootstrap/dist/css/bootstrap.css";
 
 ## CLI
 
-The CLI copies CSS files into your project instead of linking a bundle, so you can edit them. It's the shadcn workflow, and it arrives in {RELEASE_VERSION}.
+The CLI copies files into your project instead of linking a bundle, so you can edit them: CSS for every project, plus React, Vue or Angular components in framework projects. It's the shadcn workflow, and it arrives in {RELEASE_VERSION}. In a plain HTML project it looks like this:
 
 <Terminal
   command="npx shadcn-bootstrap init"
-  output={`✔ Wrote components.json
-✔ Created css/tokens.css
-✔ Created css/bridge.css
-
-Add these to your <head>, Bootstrap first:
-  <link rel="stylesheet" href="${bootstrap.css.href}" integrity="${bootstrap.css.integrity}" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/bridge.css">`}
+  output={snippet1}
   planned
 />
 
-<Terminal command="npx shadcn-bootstrap add button card input" output={addOutput(["button", "card", "input"])} planned />
+<Terminal command="npx shadcn-bootstrap add button card input" output={addOutput(["button", "card", "input"], "html")} planned />
 
 See [CLI](/docs/cli/) for every command.

@@ -93,6 +93,33 @@ document.addEventListener("click", async (event) => {
   }
 });
 
+// Code syntax: one choice for every example on the site, remembered across pages.
+const SYNTAX_KEY = "sb-syntax";
+function setSyntax(syntax: string, save = true) {
+  document.querySelectorAll<HTMLElement>("[data-syntax-group]").forEach((group) => {
+    group.querySelectorAll<HTMLButtonElement>("[data-syntax-tab]").forEach((tab) => {
+      tab.setAttribute("aria-selected", String(tab.dataset.syntaxTab === syntax));
+    });
+    group.querySelectorAll<HTMLElement>("[data-syntax-panel]").forEach((panel) => {
+      panel.hidden = panel.dataset.syntaxPanel !== syntax;
+    });
+  });
+  if (save) {
+    try {
+      localStorage.setItem(SYNTAX_KEY, syntax);
+    } catch {}
+  }
+}
+try {
+  const saved = localStorage.getItem(SYNTAX_KEY);
+  if (saved && saved !== "react" && ["vue", "angular", "html"].includes(saved)) setSyntax(saved, false);
+} catch {}
+
+document.addEventListener("click", (event) => {
+  const tab = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-syntax-tab]");
+  if (tab) setSyntax(tab.dataset.syntaxTab!);
+});
+
 // Iframe previews report their height.
 window.addEventListener("message", (event) => {
   if (!event.data?.sbFrame) return;

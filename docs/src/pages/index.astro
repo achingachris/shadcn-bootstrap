@@ -38,13 +38,21 @@ const quickstart = `<!doctype html>
       <span class="badge badge-outline">Bootstrap {bootstrap.version} · {built} of {catalog.components.length} components built</span>
       <h1>The shadcn/ui look for Bootstrap 6.</h1>
       <p class="docs-lead">
-        Tokens, a bridge onto Bootstrap's <code>--bs-*</code> variables, and per-component CSS you copy into your project and own.
-        Works with any HTML: static sites, Django, Rails, Laravel or a JS framework.
+        shadcn-style components for React, Next.js, Angular and Vue, built on Bootstrap 6.
+        <code>&lt;Button variant="outline"&gt;</code>, <code>&lt;Card&gt;</code>, <code>&lt;CardHeader&gt;</code>: copied into your project, yours to edit.
+        Plain HTML projects use the same CSS with Bootstrap markup.
       </p>
       <div class="d-flex flex-wrap gap-2 justify-content-center">
         <a class="btn btn-solid theme-primary" href="/docs/">Get started</a>
         <a class="btn btn-outline" href="/docs/components/">Browse components</a>
       </div>
+      <nav class="landing-frameworks" aria-label="Framework guides">
+        <a href="/docs/frameworks/next/">Next.js</a>
+        <a href="/docs/frameworks/react/">React</a>
+        <a href="/docs/frameworks/vue/">Vue</a>
+        <a href="/docs/frameworks/angular/">Angular</a>
+        <a href="/docs/installation/">Plain HTML</a>
+      </nav>
       <p class="landing-note">Unofficial community port. Not affiliated with shadcn.</p>
     </section>
 
@@ -86,8 +94,8 @@ const quickstart = `<!doctype html>
     </section>
 
     <section class="landing-quickstart">
-      <h2>Two links and plain Bootstrap markup</h2>
-      <p class="docs-lead">Load Bootstrap 6, then shadcn-bootstrap. The page below is the snippet, rendered.</p>
+      <h2>No framework? Two links and plain markup</h2>
+      <p class="docs-lead">The components are thin wrappers over Bootstrap 6 classes, so the same CSS works without a framework or a bundler. Load Bootstrap 6, then shadcn-bootstrap. The page below is the snippet, rendered.</p>
       <Example
         code={quickstart}
         document
@@ -105,6 +113,9 @@ const quickstart = `<!doctype html>
     .landing-hero { display: grid; justify-items: center; gap: 1rem; max-width: 46rem; margin-inline: auto; text-align: center; }
     .landing-hero h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.035em; margin: 0; }
     .landing-hero .docs-lead { margin: 0; }
+    .landing-frameworks { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.25rem 1rem; font-size: 0.875rem; }
+    .landing-frameworks a { color: var(--muted-foreground); }
+    .landing-frameworks a:hover { color: var(--foreground); }
     .landing-note { font-size: 0.8125rem; color: var(--muted-foreground); margin: 0; }
     .landing-showcase { display: grid; gap: 1rem; max-width: 52rem; margin: 3.5rem auto 0; }
     @media (width >= 768px) { .landing-showcase { grid-template-columns: 1fr 1fr; } }
