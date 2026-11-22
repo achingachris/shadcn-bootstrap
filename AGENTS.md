@@ -31,7 +31,7 @@ npm install
 
 CI (`.github/workflows/ci.yml`) runs `npm ci`, `npm run lint` and `npm run docs:build` on Node 24.
 
-The docs site deploys on Vercel from `main` (previews for other branches). The Vercel project's Root Directory is `docs`, so its config is `docs/vercel.json`: install with `npm ci` (npm resolves the workspace root), build with `cd .. && npm run docs:build`, output `dist`. Commands there run inside `docs/`, where the root `docs:*` scripts don't exist.
+The docs site deploys on Vercel from `main` (previews for other branches). The Vercel project's Root Directory is `docs`, so its config is `docs/vercel.json`: install with `cd .. && npm ci` (run from `docs/`, `npm ci` would install only the docs workspace and skip the root devDependencies), build with `cd .. && npm run docs:build`, output `dist`. Commands there run inside `docs/`, where the root `docs:*` scripts don't exist.
 
 ## Repository map
 
