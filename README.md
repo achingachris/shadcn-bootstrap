@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/shadcn-bootstrap)](https://www.npmjs.com/package/shadcn-bootstrap)
 
-**Docs:** [shadcn-bootstrap-xi.vercel.app](https://shadcn-bootstrap-xi.vercel.app)
+**Docs:** [shadcn-bootstrap.vercel.app](https://shadcn-bootstrap.vercel.app)
 
 The [shadcn/ui](https://ui.shadcn.com) look and "own your code" workflow for **Bootstrap 6**, in **React, Next.js, Angular and Vue**.
 
@@ -51,7 +51,7 @@ Import Bootstrap's CSS first, then shadcn-bootstrap, once at the app root. Boots
 | Nuxt | `nuxt.config.ts`: `css: ["bootstrap/dist/css/bootstrap.min.css", "shadcn-bootstrap"]` | `plugins/bootstrap.client.ts`: `await import("bootstrap")` |
 | Angular | `angular.json` `styles`: Bootstrap's CSS, then `node_modules/shadcn-bootstrap/dist/css/shadcn-bootstrap.min.css` | `afterNextRender(() => import("bootstrap"))` in the root component |
 
-Then add components with the CLI (`npx shadcn-bootstrap add button card`, planned for 0.1.0) and use them like shadcn/ui. Until the CLI ships, the component files are in the package under `node_modules/shadcn-bootstrap/dist/registry/<name>/` (`react/`, `vue/`, `angular/` and the CSS) to copy by hand. The [docs](https://shadcn-bootstrap-xi.vercel.app/docs/) have a full guide per framework, and every example has React, Vue, Angular and HTML tabs.
+Then add components with the CLI (`npx shadcn-bootstrap add button card`, planned for 0.1.0) and use them like shadcn/ui. Until the CLI ships, the component files are in the package under `node_modules/shadcn-bootstrap/dist/registry/<name>/` (`react/`, `vue/`, `angular/` and the CSS) to copy by hand. The [docs](https://shadcn-bootstrap.vercel.app/docs/) have a full guide per framework, and every example has React, Vue, Angular and HTML tabs.
 
 ## Install from the CDN (no build step)
 
