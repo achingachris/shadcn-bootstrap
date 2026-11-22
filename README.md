@@ -29,7 +29,7 @@ The CSS comes in three layers on top of stock Bootstrap:
 
 Tokens and components sit in Bootstrap 6's `custom` cascade layer, so Bootstrap utilities still win. The bridge's `:root` block is unlayered, because Bootstrap 6 alpha.1 emits its own `:root` tokens unlayered; load shadcn-bootstrap after Bootstrap. The same CSS also works in plain HTML and server templates.
 
-**Status:** pre-release. Tokens, bridge and 8 components (Button, Badge, Card, Alert, Input, Label, Checkbox, Switch) are built, each as CSS plus React, Vue and Angular components. See [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for all 66 components and the roadmap.
+**Status:** pre-release. Tokens, bridge and 8 components (Button, Badge, Card, Alert, Input, Label, Checkbox, Switch) are built, each as CSS plus React, Vue and Angular components. The rest of shadcn's 66 components are planned; the docs' Components page shows the status of each.
 
 ## Use it in your framework
 
@@ -105,12 +105,10 @@ npm run docs:dev
 
 | Script | What it does |
 | --- | --- |
-| `npm run build` | Builds `dist/css`, validates and builds `dist/registry`, regenerates the component tables in `IMPLEMENTATION_PLAN.md` |
+| `npm run build` | Builds `dist/css` and validates and builds `dist/registry` |
 | `npm run lint` | Stylelint over the Sass sources |
 | `npm run docs:dev` | Docs site at http://localhost:4321 |
 | `npm run docs:build` | Static docs build in `docs/dist` |
-
-Adding a component: see Phase 3 in [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md).
 
 ## License
 

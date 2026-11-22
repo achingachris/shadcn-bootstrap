@@ -1,11 +1,11 @@
-// Regenerates IMPLEMENTATION_PLAN.md's component tables from registry/catalog.json,
+// Regenerates agents/IMPLEMENTATION_PLAN.md's component tables from registry/catalog.json,
 // so the plan, the docs and the registry never disagree about status.
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { root } from "./lib.mjs";
 
 const catalog = JSON.parse(await readFile(join(root, "registry/catalog.json"), "utf8"));
-const template = await readFile(join(root, "scripts/plan-template.md"), "utf8");
+const template = await readFile(join(root, "agents/IMPLEMENTATION_PLAN.template.md"), "utf8");
 const icon = (s) => (s === "built" ? "✅" : s === "in-progress" ? "🟡" : "⬜");
 
 const tables = Object.entries(catalog.tiers).map(([tier, label]) => {
@@ -16,5 +16,5 @@ const tables = Object.entries(catalog.tiers).map(([tier, label]) => {
   return [head, ...body].join("\n");
 });
 
-await writeFile(join(root, "IMPLEMENTATION_PLAN.md"), template.replace("%%COMPONENT_TABLES%%", tables.join("\n\n")));
-console.log("✓ IMPLEMENTATION_PLAN.md");
+await writeFile(join(root, "agents/IMPLEMENTATION_PLAN.md"), template.replace("%%COMPONENT_TABLES%%", tables.join("\n\n")));
+console.log("✓ agents/IMPLEMENTATION_PLAN.md");
