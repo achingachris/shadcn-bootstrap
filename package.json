@@ -17,9 +17,13 @@
   ],
   "license": "MIT",
   "author": "Chris Achinga",
+  "homepage": "https://shadcn-bootstrap-xi.vercel.app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/achingachris/shadcn-bootstrap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/achingachris/shadcn-bootstrap/issues"
   },
   "type": "module",
   "files": [
