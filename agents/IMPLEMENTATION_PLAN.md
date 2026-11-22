@@ -137,14 +137,14 @@ Status: ✅ built · ⬜ planned. Batch 0 is the starter set; batches 1–5 comp
 
 | | Batch | Component | Bootstrap 6 base | Approach | Release |
 | --- | --- | --- | --- | --- | --- |
-| ✅ | 0 | Button | `.btn` | `--bs-btn-*` overrides; variants default/secondary/destructive/outline/ghost/link; sizes sm/lg/icon | 0.1.0 |
-| ✅ | 0 | Badge | `.badge` | default/secondary/destructive/outline variants | 0.1.0 |
-| ✅ | 0 | Card | `.card` | header/title/description/content/footer spacing, card tokens | 0.1.0 |
-| ✅ | 0 | Alert | `.alert` | default + destructive, icon slot via grid | 0.1.0 |
-| ✅ | 0 | Input | `.form-control` | height, input border, ring on focus, file input | 0.1.0 |
-| ✅ | 0 | Label | `.form-label` | weight/size, disabled peer state | 0.1.0 |
-| ✅ | 0 | Checkbox | `.check` | `--bs-check-*` overrides, indeterminate | 0.1.0 |
-| ✅ | 0 | Switch | `.switch` | track/thumb sizes, sm/lg | 0.1.0 |
+| ✅ | 0 | Button | `.btn` | `--bs-btn-*` overrides; variants default/secondary/destructive/outline/ghost/link; sizes sm/lg/icon | 0.0.1 |
+| ✅ | 0 | Badge | `.badge` | default/secondary/destructive/outline variants | 0.0.1 |
+| ✅ | 0 | Card | `.card` | header/title/description/content/footer spacing, card tokens | 0.0.1 |
+| ✅ | 0 | Alert | `.alert` | default + destructive, icon slot via grid | 0.0.1 |
+| ✅ | 0 | Input | `.form-control` | height, input border, ring on focus, file input | 0.0.1 |
+| ✅ | 0 | Label | `.form-label` | weight/size, disabled peer state | 0.0.1 |
+| ✅ | 0 | Checkbox | `.check` | `--bs-check-*` overrides, indeterminate | 0.0.1 |
+| ✅ | 0 | Switch | `.switch` | track/thumb sizes, sm/lg | 0.0.1 |
 | ⬜ | 1 | Textarea | `.form-control` | `field-sizing: content` auto-grow | 1.0.0 |
 | ⬜ | 1 | Native Select | `select.form-control` | caret, height parity with Input | 1.0.0 |
 | ⬜ | 1 | Radio Group | `.radio` | stacked group layout | 1.0.0 |

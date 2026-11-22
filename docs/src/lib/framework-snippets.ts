@@ -8,7 +8,7 @@ import { toFrameworks } from "./frameworks";
 const indent = (s: string, n: number) => s.split("\n").map((l) => (l.trim() ? " ".repeat(n) + l : l)).join("\n");
 
 export const installCommand = `npm install bootstrap@${bootstrap.version} shadcn-bootstrap`;
-export const installOutput = "added 2 packages, and audited 3 packages in 2s\n\nfound 0 vulnerabilities";
+export const installOutput = "added 6 packages, and audited 7 packages in 2s\n\n2 packages are looking for funding\n  run `npm fund` for details\n\nfound 0 vulnerabilities";
 export const addCommand = "npx shadcn-bootstrap add button card input label";
 
 /** What the guides' example page renders (plain HTML, also the HTML-project version). */

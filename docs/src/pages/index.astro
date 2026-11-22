@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Example from "../components/Example.astro";
 import { catalog } from "../lib/catalog";
-import { bootstrap, shadcnBootstrapCdn, RELEASE_VERSION } from "../lib/build-info";
+import { bootstrap, shadcnBootstrapCdn, VERSION } from "../lib/build-info";
 
 const built = catalog.components.filter((c) => c.status === "built").length;
 const quickstart = `<!doctype html>
@@ -100,7 +100,7 @@ const quickstart = `<!doctype html>
         code={quickstart}
         document
         title="index.html"
-        caption={`The shadcn-bootstrap link points at ${RELEASE_VERSION}, which isn't on jsDelivr yet; the preview uses the local build in its place.`}
+        caption={`The shadcn-bootstrap link points at ${VERSION} on jsDelivr; the preview renders the same CSS built from the docs' source.`}
         minHeight="22rem"
       />
     </section>

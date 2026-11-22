@@ -22,9 +22,13 @@ const bootstrapDir = join(ROOT, "node_modules/bootstrap");
 const pkg = JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8"));
 const bootstrapPkg = JSON.parse(readFileSync(join(bootstrapDir, "package.json"), "utf8"));
 
-/** First version the CLI and CDN URLs will exist at. */
-export const RELEASE_VERSION = "0.1.0";
-export const PACKAGE_VERSION: string = pkg.version;
+/**
+ * The published version. release-please bumps package.json on each release, so every
+ * npm and CDN reference in the docs follows it without hand edits.
+ */
+export const VERSION: string = pkg.version;
+/** The release the CLI is planned for. Pages with `planned` terminals use it. */
+export const CLI_VERSION = "0.1.0";
 
 function sri(file: string) {
   return `sha384-${createHash("sha384").update(readFileSync(file)).digest("base64")}`;
@@ -40,7 +44,7 @@ export const bootstrap = {
 };
 
 export const shadcnBootstrapCdn = (file = "dist/css/shadcn-bootstrap.min.css") =>
-  `https://cdn.jsdelivr.net/npm/shadcn-bootstrap@${RELEASE_VERSION}/${file}`;
+  `https://cdn.jsdelivr.net/npm/shadcn-bootstrap@${VERSION}/${file}`;
 
 const cache = new Map<string, string>();
 function compile(source: string): string {
@@ -67,7 +71,7 @@ export interface FrameOptions {
   css?: string;
   /** Which shadcn-bootstrap CSS the frame loads before `css`. */
   base?: "bundle" | "bridge" | "none";
-  /** `html` is a full document; its shadcn-bootstrap CDN <link> is swapped for the local build. */
+  /** `html` is a full document; its shadcn-bootstrap CDN <link> is swapped for the docs' own build, so previews match the source. */
   document?: boolean;
   theme?: "light" | "dark";
   /** Load Bootstrap 6's JavaScript (ESM) in the frame. */
@@ -85,7 +89,7 @@ export function frameDoc({ html, css = "", base = "bundle", document = false, th
   if (document) {
     const swapped = html.replace(
       /<link[^>]+shadcn-bootstrap[^>]*>/,
-      `<style>/* local build of shadcn-bootstrap (not on the CDN until ${RELEASE_VERSION}) */\n${bundleCss()}</style>`,
+      `<style>/* shadcn-bootstrap, built from this checkout in place of the CDN link */\n${bundleCss()}</style>`,
     );
     return swapped.replace("</head>", `${mode}${FONTS}${frameCss}${css ? `<style>${css}</style>` : ""}</head>`).replace("</body>", `${resize}</body>`);
   }
