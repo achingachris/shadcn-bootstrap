@@ -25,7 +25,11 @@ const catalog = await readJson(join(registryDir, "catalog.json"));
 if (!validateCatalog(catalog)) fail(`catalog.json: ${ajv.errorsText(validateCatalog.errors)}`);
 const catalogByName = new Map(catalog.components.map((c) => [c.name, c]));
 
-const dirs = (await readdir(registryDir, { withFileTypes: true })).filter((d) => d.isDirectory()).map((d) => d.name).sort();
+// Folders starting with "_" hold shared files (e.g. _lib/utils.ts), not components.
+const dirs = (await readdir(registryDir, { withFileTypes: true }))
+  .filter((d) => d.isDirectory() && !d.name.startsWith("_"))
+  .map((d) => d.name)
+  .sort();
 const manifests = [];
 for (const name of dirs) {
   const file = join(registryDir, name, `${name}.json`);
@@ -71,10 +75,34 @@ for (const m of manifests) {
   const manifest = { ...m, files };
   delete manifest.$schema;
   await write(join(out, m.name, `${m.name}.json`), JSON.stringify(manifest, null, 2) + "\n");
-  index.push({ name: m.name, title: m.title, description: m.description, tier: m.tier, registryDependencies: m.registryDependencies });
+  index.push({
+    name: m.name,
+    title: m.title,
+    description: m.description,
+    tier: m.tier,
+    frameworks: [...new Set(m.files.map((f) => f.type).filter((t) => ["react", "vue", "angular"].includes(t)))],
+    registryDependencies: m.registryDependencies,
+  });
 }
 
-await write(join(out, "registry.json"), JSON.stringify({ name: "shadcn-bootstrap", version: pkg.version, bootstrap: pkg.peerDependencies.bootstrap, components: index }, null, 2) + "\n");
+// Shared helpers the React and Vue components import from "@/lib/utils".
+const libSource = await readFile(join(registryDir, "_lib/utils.ts"), "utf8");
+await write(join(out, "lib/utils.ts"), libSource);
+
+await write(
+  join(out, "registry.json"),
+  JSON.stringify(
+    {
+      name: "shadcn-bootstrap",
+      version: pkg.version,
+      bootstrap: pkg.peerDependencies.bootstrap,
+      lib: [{ path: "lib/utils.ts", sha256: sha256(libSource), frameworks: ["react", "vue"] }],
+      components: index,
+    },
+    null,
+    2,
+  ) + "\n",
+);
 await write(join(out, "catalog.json"), JSON.stringify(catalog, null, 2) + "\n");
 await write(join(out, "schema.json"), JSON.stringify(schema, null, 2) + "\n");
 console.log(`✓ dist/registry: ${index.length} components (catalog: ${catalog.components.length})`);

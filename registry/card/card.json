@@ -23,6 +23,46 @@
     {
       "path": "card.example.html",
       "type": "example"
+    },
+    {
+      "path": "react/card.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Card.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardAction.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardContent.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardDescription.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardFooter.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardHeader.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardTitle.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/card.ts",
+      "type": "angular"
     }
   ],
   "registryDependencies": [],

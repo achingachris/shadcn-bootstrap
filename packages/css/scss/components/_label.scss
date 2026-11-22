@@ -12,8 +12,9 @@
     user-select: none;
   }
 
-  // Labels beside a check, radio or switch.
+  // Labels beside a check, radio or switch (including the Label component's .form-label).
   :is(.check, .radio, .switch) ~ label {
+    margin-bottom: 0;
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;

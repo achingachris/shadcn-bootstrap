@@ -4,12 +4,70 @@
   "title": "Badge",
   "description": "Displays a badge or a component that looks like a badge.",
   "tier": 1,
-  "bootstrap": { "classes": [".badge", ".badge-outline", ".theme-*"] },
+  "bootstrap": {
+    "classes": [
+      ".badge",
+      ".badge-outline",
+      ".theme-*"
+    ]
+  },
   "files": [
-    { "path": "badge.css", "type": "css" },
-    { "path": "badge.example.html", "type": "example" }
+    {
+      "path": "badge.css",
+      "type": "css"
+    },
+    {
+      "path": "badge.example.html",
+      "type": "example"
+    },
+    {
+      "path": "react/badge.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Badge.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/badge.ts",
+      "type": "angular"
+    }
   ],
   "registryDependencies": [],
-  "cssVars": ["--primary", "--primary-foreground", "--secondary", "--secondary-foreground", "--destructive", "--destructive-foreground", "--accent", "--accent-foreground", "--foreground", "--border", "--ring", "--radius"],
-  "variants": [{"name":"default","classes":"badge"},{"name":"secondary","classes":"badge theme-secondary"},{"name":"destructive","classes":"badge theme-danger"},{"name":"outline","classes":"badge badge-outline"}]
+  "cssVars": [
+    "--primary",
+    "--primary-foreground",
+    "--secondary",
+    "--secondary-foreground",
+    "--destructive",
+    "--destructive-foreground",
+    "--accent",
+    "--accent-foreground",
+    "--foreground",
+    "--border",
+    "--ring",
+    "--radius"
+  ],
+  "variants": [
+    {
+      "name": "default",
+      "classes": "badge"
+    },
+    {
+      "name": "secondary",
+      "classes": "badge theme-secondary"
+    },
+    {
+      "name": "destructive",
+      "classes": "badge theme-danger"
+    },
+    {
+      "name": "outline",
+      "classes": "badge badge-outline"
+    }
+  ]
 }

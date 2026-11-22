@@ -3,24 +3,63 @@
   "$id": "https://cdn.jsdelivr.net/npm/shadcn-bootstrap/registry/schema.json",
   "title": "shadcn-bootstrap registry",
   "$defs": {
-    "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
     "manifest": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "title", "description", "tier", "bootstrap", "files", "registryDependencies", "cssVars"],
+      "required": [
+        "name",
+        "title",
+        "description",
+        "tier",
+        "bootstrap",
+        "files",
+        "registryDependencies",
+        "cssVars"
+      ],
       "properties": {
-        "$schema": { "type": "string" },
-        "name": { "$ref": "#/$defs/name" },
-        "title": { "type": "string", "minLength": 1 },
-        "description": { "type": "string", "minLength": 1 },
-        "tier": { "enum": [1, 2, 3, 4] },
+        "$schema": {
+          "type": "string"
+        },
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tier": {
+          "enum": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
         "bootstrap": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["classes"],
+          "required": [
+            "classes"
+          ],
           "properties": {
-            "classes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-            "js": { "type": "boolean" }
+            "classes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "js": {
+              "type": "boolean"
+            }
           }
         },
         "files": {
@@ -29,48 +68,131 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["path", "type"],
+            "required": [
+              "path",
+              "type"
+            ],
             "properties": {
-              "path": { "type": "string" },
-              "type": { "enum": ["css", "example"] }
+              "path": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "css",
+                  "example",
+                  "react",
+                  "vue",
+                  "angular"
+                ],
+                "description": "css: copied for every framework. example: docs reference markup. react/vue/angular: component source copied for that framework (React into components/ui/, Vue into components/ui/<name>/, Angular into ui/)."
+              }
             }
           }
         },
-        "registryDependencies": { "type": "array", "items": { "$ref": "#/$defs/name" } },
-        "cssVars": { "type": "array", "items": { "type": "string", "pattern": "^--[a-z0-9-]+$" } },
+        "registryDependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/name"
+          }
+        },
+        "cssVars": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^--[a-z0-9-]+$"
+          }
+        },
         "variants": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["name", "classes"],
-            "properties": { "name": { "type": "string" }, "classes": { "type": "string" } }
+            "required": [
+              "name",
+              "classes"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "classes": {
+                "type": "string"
+              }
+            }
           }
         }
       }
     },
     "catalog": {
       "type": "object",
-      "required": ["components", "tiers"],
+      "required": [
+        "components",
+        "tiers"
+      ],
       "properties": {
-        "$schema": { "type": "string" },
-        "source": { "type": "string" },
-        "tiers": { "type": "object" },
+        "$schema": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "tiers": {
+          "type": "object"
+        },
         "components": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["name", "title", "tier", "batch", "status", "release", "bootstrap", "approach"],
+            "required": [
+              "name",
+              "title",
+              "tier",
+              "batch",
+              "status",
+              "release",
+              "bootstrap",
+              "approach"
+            ],
             "properties": {
-              "name": { "$ref": "#/$defs/name" },
-              "title": { "type": "string" },
-              "tier": { "enum": [1, 2, 3, 4] },
-              "batch": { "type": ["integer", "null"], "minimum": 0, "maximum": 5 },
-              "status": { "enum": ["built", "in-progress", "planned"] },
-              "release": { "type": "string" },
-              "bootstrap": { "type": "string" },
-              "approach": { "type": "string" }
+              "name": {
+                "$ref": "#/$defs/name"
+              },
+              "title": {
+                "type": "string"
+              },
+              "tier": {
+                "enum": [
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              },
+              "batch": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 5
+              },
+              "status": {
+                "enum": [
+                  "built",
+                  "in-progress",
+                  "planned"
+                ]
+              },
+              "release": {
+                "type": "string"
+              },
+              "bootstrap": {
+                "type": "string"
+              },
+              "approach": {
+                "type": "string"
+              }
             }
           }
         }

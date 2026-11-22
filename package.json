@@ -1,7 +1,7 @@
 {
   "name": "shadcn-bootstrap",
   "version": "0.0.0",
-  "description": "Unofficial community port of shadcn/ui's design for Bootstrap 6: tokens, a bridge onto --bs-* variables, and per-component CSS you own.",
+  "description": "Unofficial community port of shadcn/ui for Bootstrap 6: shadcn-style components for React, Next.js, Vue and Angular, plus the CSS that styles them (works with plain HTML too).",
   "keywords": [
     "bootstrap",
     "bootstrap6",
@@ -9,7 +9,11 @@
     "shadcn-ui",
     "css",
     "design-tokens",
-    "components"
+    "components",
+    "react",
+    "nextjs",
+    "vue",
+    "angular"
   ],
   "license": "MIT",
   "author": "Chris Achinga",
@@ -28,7 +32,8 @@
     "./bridge.css": "./dist/css/bridge.css",
     "./themes/*": "./dist/css/themes/*",
     "./registry/*": "./dist/registry/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./dist/*": "./dist/*"
   },
   "peerDependencies": {
     "bootstrap": "^6.0.0-alpha.1"

@@ -17,6 +17,22 @@
     {
       "path": "label.example.html",
       "type": "example"
+    },
+    {
+      "path": "react/label.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Label.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/label.ts",
+      "type": "angular"
     }
   ],
   "registryDependencies": [],

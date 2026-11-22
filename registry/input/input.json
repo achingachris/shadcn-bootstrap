@@ -17,6 +17,22 @@
     {
       "path": "input.example.html",
       "type": "example"
+    },
+    {
+      "path": "react/input.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Input.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/input.ts",
+      "type": "angular"
     }
   ],
   "registryDependencies": [

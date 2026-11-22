@@ -17,6 +17,22 @@
     {
       "path": "switch.example.html",
       "type": "example"
+    },
+    {
+      "path": "react/switch.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Switch.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/switch.ts",
+      "type": "angular"
     }
   ],
   "registryDependencies": [

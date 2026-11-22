@@ -4,12 +4,84 @@
   "title": "Button",
   "description": "Displays a button or a component that looks like a button.",
   "tier": 1,
-  "bootstrap": { "classes": [".btn", ".btn-solid", ".btn-outline", ".btn-text", ".btn-link", ".btn-icon", ".theme-*"] },
+  "bootstrap": {
+    "classes": [
+      ".btn",
+      ".btn-solid",
+      ".btn-outline",
+      ".btn-text",
+      ".btn-link",
+      ".btn-icon",
+      ".theme-*"
+    ]
+  },
   "files": [
-    { "path": "button.css", "type": "css" },
-    { "path": "button.example.html", "type": "example" }
+    {
+      "path": "button.css",
+      "type": "css"
+    },
+    {
+      "path": "button.example.html",
+      "type": "example"
+    },
+    {
+      "path": "react/button.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Button.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/button.ts",
+      "type": "angular"
+    }
   ],
   "registryDependencies": [],
-  "cssVars": ["--primary", "--primary-foreground", "--secondary", "--secondary-foreground", "--destructive", "--destructive-foreground", "--accent", "--accent-foreground", "--background", "--foreground", "--border", "--input", "--ring", "--radius"],
-  "variants": [{"name":"default","classes":"btn btn-solid theme-primary"},{"name":"secondary","classes":"btn btn-solid theme-secondary"},{"name":"destructive","classes":"btn btn-solid theme-danger"},{"name":"outline","classes":"btn btn-outline"},{"name":"ghost","classes":"btn btn-text"},{"name":"link","classes":"btn btn-link"}]
+  "cssVars": [
+    "--primary",
+    "--primary-foreground",
+    "--secondary",
+    "--secondary-foreground",
+    "--destructive",
+    "--destructive-foreground",
+    "--accent",
+    "--accent-foreground",
+    "--background",
+    "--foreground",
+    "--border",
+    "--input",
+    "--ring",
+    "--radius"
+  ],
+  "variants": [
+    {
+      "name": "default",
+      "classes": "btn btn-solid theme-primary"
+    },
+    {
+      "name": "secondary",
+      "classes": "btn btn-solid theme-secondary"
+    },
+    {
+      "name": "destructive",
+      "classes": "btn btn-solid theme-danger"
+    },
+    {
+      "name": "outline",
+      "classes": "btn btn-outline"
+    },
+    {
+      "name": "ghost",
+      "classes": "btn btn-text"
+    },
+    {
+      "name": "link",
+      "classes": "btn btn-link"
+    }
+  ]
 }

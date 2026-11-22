@@ -18,6 +18,22 @@
     {
       "path": "checkbox.example.html",
       "type": "example"
+    },
+    {
+      "path": "react/checkbox.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Checkbox.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/checkbox.ts",
+      "type": "angular"
     }
   ],
   "registryDependencies": [
