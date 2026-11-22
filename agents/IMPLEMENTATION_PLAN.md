@@ -2,9 +2,11 @@
 
 Last updated 22 Nov 2026 · owner: Chris Achinga
 
+> Internal working plan for maintainers and coding agents. Not linked from the README or the docs site. The component tables are generated from `registry/catalog.json` by `npm run build` (template: `agents/IMPLEMENTATION_PLAN.template.md`); edit the template, not this file.
+
 This is the working plan for building shadcn-bootstrap. It turns the Build & Release Plan into tasks with file paths and acceptance criteria, records the decisions made since, and tracks every component. Check items off as they land.
 
-> **Unofficial community port.** shadcn-bootstrap is not affiliated with or endorsed by shadcn. shadcn/ui is MIT licensed; its copyright notice is kept in [LICENSE](LICENSE).
+> **Unofficial community port.** shadcn-bootstrap is not affiliated with or endorsed by shadcn. shadcn/ui is MIT licensed; its copyright notice is kept in [LICENSE](../LICENSE).
 
 ## Goal
 
@@ -118,7 +120,7 @@ Build in batches (table below). For each component:
 - [ ] v0.1.0: batch 0 + CLI
 
 ### Phase 7: Docs + launch
-- [x] Astro site: landing, introduction, installation, theming, dark mode, CLI, components index (all 66), component pages, theme generator, roadmap
+- [x] Astro site: landing, introduction, installation, theming, dark mode, CLI, components index (all 66), component pages, theme generator
 - [x] Snippets always show output (`<Example>`, `<Terminal>`; build fails on bare HTML/CSS/JSX/Vue/shell fences)
 - [x] Framework guides: Next.js (App Router), React (Vite), Vue (Vite + Nuxt), Angular, each covering install, CSS import order, client-only Bootstrap JS and dark mode
 - [x] React / Vue / Angular / HTML tabs on every example, generated from the HTML (`docs/src/lib/frameworks.ts`); component pages show each framework's source
@@ -131,7 +133,91 @@ Build in batches (table below). For each component:
 
 Status: ✅ built · ⬜ planned. Batch 0 is the starter set; batches 1–5 complete v1.0; Tiers 3–4 ship in minor releases.
 
-%%COMPONENT_TABLES%%
+### Tier 1: CSS on existing Bootstrap parts (33, 8 built)
+
+| | Batch | Component | Bootstrap 6 base | Approach | Release |
+| --- | --- | --- | --- | --- | --- |
+| ✅ | 0 | Button | `.btn` | `--bs-btn-*` overrides; variants default/secondary/destructive/outline/ghost/link; sizes sm/lg/icon | 0.1.0 |
+| ✅ | 0 | Badge | `.badge` | default/secondary/destructive/outline variants | 0.1.0 |
+| ✅ | 0 | Card | `.card` | header/title/description/content/footer spacing, card tokens | 0.1.0 |
+| ✅ | 0 | Alert | `.alert` | default + destructive, icon slot via grid | 0.1.0 |
+| ✅ | 0 | Input | `.form-control` | height, input border, ring on focus, file input | 0.1.0 |
+| ✅ | 0 | Label | `.form-label` | weight/size, disabled peer state | 0.1.0 |
+| ✅ | 0 | Checkbox | `.check` | `--bs-check-*` overrides, indeterminate | 0.1.0 |
+| ✅ | 0 | Switch | `.switch` | track/thumb sizes, sm/lg | 0.1.0 |
+| ⬜ | 1 | Textarea | `.form-control` | `field-sizing: content` auto-grow | 1.0.0 |
+| ⬜ | 1 | Native Select | `select.form-control` | caret, height parity with Input | 1.0.0 |
+| ⬜ | 1 | Radio Group | `.radio` | stacked group layout | 1.0.0 |
+| ⬜ | 1 | Slider | `.form-range` | track/thumb on shadcn tokens | 1.0.0 |
+| ⬜ | 1 | Field | `.form-field`, `.form-label`, validation | field/label/description/error layout, horizontal variant | 1.0.0 |
+| ⬜ | 1 | Input Group | `.input-group` | addons, buttons, icons inside | 1.0.0 |
+| ⬜ | 1 | Toggle | `.btn-check` + `.btn` | pressed state, outline variant | 1.0.0 |
+| ⬜ | 1 | Toggle Group | `.btn-group` + `.btn-check` | single/multiple, joined borders | 1.0.0 |
+| ⬜ | 1 | Button Group | `.btn-group` | joined radii, separator, vertical | 1.0.0 |
+| ⬜ | 2 | Avatar | `.avatar`, `.avatar-stack` | round, fallback initials, group | 1.0.0 |
+| ⬜ | 2 | Aspect Ratio | `.ratio-*` | docs + `aspect-ratio` helper | 1.0.0 |
+| ⬜ | 2 | Breadcrumb | `.breadcrumb` | separators, ellipsis, muted links | 1.0.0 |
+| ⬜ | 2 | Pagination | `.pagination` | ghost/outline buttons, active state | 1.0.0 |
+| ⬜ | 2 | Progress | `.progress` | thin track, primary bar | 1.0.0 |
+| ⬜ | 2 | Skeleton | `.placeholder` | muted pulse | 1.0.0 |
+| ⬜ | 2 | Spinner | `.spinner-border` / `.spinner-rotate` | sizes, muted color | 1.0.0 |
+| ⬜ | 2 | Separator | `hr`, `.vr` | horizontal/vertical, border token | 1.0.0 |
+| ⬜ | 2 | Kbd | `kbd` element (custom) | key cap style, group | 1.0.0 |
+| ⬜ | 2 | Table | `.table` | header/row/hover/caption/footer | 1.0.0 |
+| ⬜ | 2 | Item | `.list-group` | media/content/actions layout, variants | 1.0.0 |
+| ⬜ | 2 | Empty | custom `.empty` | icon/title/description/actions | 1.0.0 |
+| ⬜ | 2 | Scroll Area | custom `.scroll-area` | `scrollbar-width` / `scrollbar-color` | 1.0.0 |
+| ⬜ | 2 | Code Block | `pre` / `code` (custom) | muted bg, line numbers, copy-button slot | 1.0.0 |
+| ⬜ | 2 | Typography | `.prose` + type utilities | h1–h4, lead, muted, blockquote, lists, inline code | 1.0.0 |
+| ⬜ | 2 | Direction | `dir="rtl"` | logical properties everywhere; RTL pass over all built components | 1.0.0 |
+
+### Tier 2: Restyle Bootstrap 6 JS components (20, 0 built)
+
+| | Batch | Component | Bootstrap 6 base | Approach | Release |
+| --- | --- | --- | --- | --- | --- |
+| ⬜ | 3 | Dialog | `.dialog` | overlay, centered content, header/footer, close | 1.0.0 |
+| ⬜ | 3 | Alert Dialog | `.dialog` (static) | no dismiss on backdrop, action/cancel footer | 1.0.0 |
+| ⬜ | 3 | Drawer | `.drawer-bottom` | handle bar, rounded top | 1.0.0 |
+| ⬜ | 3 | Sheet | `.drawer-start/end/top/bottom` | side sheets, widths | 1.0.0 |
+| ⬜ | 3 | Popover | `.popover` | popover tokens, shadow, arrow off | 1.0.0 |
+| ⬜ | 3 | Hover Card | `.popover` + hover trigger | delay settings documented | 1.0.0 |
+| ⬜ | 3 | Tooltip | `.tooltip` | primary bg, small text | 1.0.0 |
+| ⬜ | 3 | Toast | `.toast` | Sonner-like stack, variants (JS queue is an open decision) | 1.0.0 |
+| ⬜ | 4 | Dropdown Menu | `.menu` | items, shortcuts, checks, sub-menus, separators | 1.0.0 |
+| ⬜ | 4 | Context Menu | `.menu` on `contextmenu` | trigger docs + tiny helper snippet | 1.0.0 |
+| ⬜ | 4 | Menubar | `.navbar` + `.menu` | bar with triggers | 1.0.0 |
+| ⬜ | 4 | Navigation Menu | `.nav` + `.menu` | mega-menu panels | 1.0.0 |
+| ⬜ | 4 | Select | `.menu` / `.combobox` | trigger styled like Input | 1.0.0 |
+| ⬜ | 4 | Combobox | `.combobox` | search input, empty state | 1.0.0 |
+| ⬜ | 4 | Tabs | `.nav-tabs` + `.tab-content` | muted pill list (shadcn style) | 1.0.0 |
+| ⬜ | 4 | Sidebar | `.drawer` + `.nav` | collapsible, mobile drawer, sidebar tokens | 1.0.0 |
+| ⬜ | 5 | Accordion | `.accordion`, `details`/`summary` | borderless items, chevron | 1.0.0 |
+| ⬜ | 5 | Collapsible | `.collapse` | trigger + content | 1.0.0 |
+| ⬜ | 5 | Carousel | `.carousel` | outline prev/next buttons | 1.0.0 |
+| ⬜ | 5 | Input OTP | `.otp`, `.otp-slot` | joined slots, separator | 1.0.0 |
+
+### Tier 3: Needs JS that Bootstrap doesn't ship (6, 0 built)
+
+| | Batch | Component | Bootstrap 6 base | Approach | Release |
+| --- | --- | --- | --- | --- | --- |
+| ⬜ | – | Calendar | none (Bootstrap 6 ships `_datepicker.scss`; evaluate first) | CSS + markup first; recommend a behaviour library | 1.1.0 |
+| ⬜ | – | Chart | theme tokens for a chart library | `--chart-1…5` tokens mapped onto a chart library's theme | 1.1.0 |
+| ⬜ | – | Command | custom | CSS + markup first; small ESM helper later | 1.1.0 |
+| ⬜ | – | Data Table | `.table` + sorting/filtering JS | CSS on Table; recommend a table behaviour library | 1.1.0 |
+| ⬜ | – | Date Picker | Calendar + Popover | depends on Calendar and Popover | 1.1.0 |
+| ⬜ | – | Resizable | custom | CSS + markup first; small ESM helper later | 1.1.0 |
+
+### Tier 4: Newest shadcn additions (7, 0 built)
+
+| | Batch | Component | Bootstrap 6 base | Approach | Release |
+| --- | --- | --- | --- | --- | --- |
+| ⬜ | – | Attachment | to be decided | Read its purpose in the shadcn source first | 1.x |
+| ⬜ | – | Bubble | to be decided | Read its purpose in the shadcn source first | 1.x |
+| ⬜ | – | Marker | to be decided | Read its purpose in the shadcn source first | 1.x |
+| ⬜ | – | Message | to be decided | Read its purpose in the shadcn source first | 1.x |
+| ⬜ | – | Message Scroller | to be decided | Read its purpose in the shadcn source first | 1.x |
+| ⬜ | – | Questionnaire | to be decided | Read its purpose in the shadcn source first | 1.x |
+| ⬜ | – | Trace | to be decided | Read its purpose in the shadcn source first | 1.x |
 
 ## Open decisions
 - [ ] Package name: keep `shadcn-bootstrap` or rebrand

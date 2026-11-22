@@ -13,7 +13,6 @@ export const gettingStarted: NavItem[] = [
   { title: "Dark mode", href: "/docs/dark-mode/" },
   { title: "CLI", href: "/docs/cli/" },
   { title: "Theme generator", href: "/themes/" },
-  { title: "Roadmap", href: "/docs/roadmap/" },
 ];
 
 export const frameworkNav: NavItem[] = [

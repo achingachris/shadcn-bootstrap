@@ -5,9 +5,8 @@ const links = [
   { href: "/docs/", label: "Docs" },
   { href: "/docs/components/", label: "Components" },
   { href: "/themes/", label: "Themes" },
-  { href: "/docs/roadmap/", label: "Roadmap" },
 ];
-const active = (href: string) => (href === "/docs/" ? path === "/docs/" || (path.startsWith("/docs/") && !path.startsWith("/docs/components") && !path.startsWith("/docs/roadmap")) : path.startsWith(href));
+const active = (href: string) => (href === "/docs/" ? path === "/docs/" || (path.startsWith("/docs/") && !path.startsWith("/docs/components")) : path.startsWith(href));
 ---
 <header class="docs-header">
   <div class="docs-container docs-header-inner">
