@@ -1,0 +1,23 @@
+# Branch flow: feature branches -> dev -> main.
+# Pull requests into main may only come from dev or from release-please's release
+# branch. The `source-branch` check is required by the main ruleset.
+name: PR target
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only dev or release-please may target main
+        env:
+          HEAD: ${{ github.head_ref }}
+        run: |
+          case "$HEAD" in
+            dev|release-please--*) echo "OK: $HEAD -> main" ;;
+            *) echo "::error::Pull requests into main must come from dev (got '$HEAD'). Retarget this PR to dev."; exit 1 ;;
+          esac
