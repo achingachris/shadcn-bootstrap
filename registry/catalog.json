@@ -14,7 +14,7 @@
       "tier": 1,
       "batch": 0,
       "status": "built",
-      "release": "0.1.0",
+      "release": "0.0.1",
       "bootstrap": "`.btn`",
       "approach": "`--bs-btn-*` overrides; variants default/secondary/destructive/outline/ghost/link; sizes sm/lg/icon"
     },
@@ -24,7 +24,7 @@
       "tier": 1,
       "batch": 0,
       "status": "built",
-      "release": "0.1.0",
+      "release": "0.0.1",
       "bootstrap": "`.badge`",
       "approach": "default/secondary/destructive/outline variants"
     },
@@ -34,7 +34,7 @@
       "tier": 1,
       "batch": 0,
       "status": "built",
-      "release": "0.1.0",
+      "release": "0.0.1",
       "bootstrap": "`.card`",
       "approach": "header/title/description/content/footer spacing, card tokens"
     },
@@ -44,7 +44,7 @@
       "tier": 1,
       "batch": 0,
       "status": "built",
-      "release": "0.1.0",
+      "release": "0.0.1",
       "bootstrap": "`.alert`",
       "approach": "default + destructive, icon slot via grid"
     },
@@ -54,7 +54,7 @@
       "tier": 1,
       "batch": 0,
       "status": "built",
-      "release": "0.1.0",
+      "release": "0.0.1",
       "bootstrap": "`.form-control`",
       "approach": "height, input border, ring on focus, file input"
     },
@@ -64,7 +64,7 @@
       "tier": 1,
       "batch": 0,
       "status": "built",
-      "release": "0.1.0",
+      "release": "0.0.1",
       "bootstrap": "`.form-label`",
       "approach": "weight/size, disabled peer state"
     },
@@ -74,7 +74,7 @@
       "tier": 1,
       "batch": 0,
       "status": "built",
-      "release": "0.1.0",
+      "release": "0.0.1",
       "bootstrap": "`.check`",
       "approach": "`--bs-check-*` overrides, indeterminate"
     },
@@ -84,7 +84,7 @@
       "tier": 1,
       "batch": 0,
       "status": "built",
-      "release": "0.1.0",
+      "release": "0.0.1",
       "bootstrap": "`.switch`",
       "approach": "track/thumb sizes, sm/lg"
     },

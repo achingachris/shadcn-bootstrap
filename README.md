@@ -1,5 +1,7 @@
 # shadcn-bootstrap
 
+[![npm](https://img.shields.io/npm/v/shadcn-bootstrap)](https://www.npmjs.com/package/shadcn-bootstrap)
+
 The [shadcn/ui](https://ui.shadcn.com) look and "own your code" workflow for **Bootstrap 6**, in **React, Next.js, Angular and Vue**.
 
 > **Unofficial community port.** Not affiliated with or endorsed by shadcn. shadcn/ui is MIT licensed and its notice is kept in [LICENSE](LICENSE).
@@ -29,11 +31,9 @@ The CSS comes in three layers on top of stock Bootstrap:
 
 Tokens and components sit in Bootstrap 6's `custom` cascade layer, so Bootstrap utilities still win. The bridge's `:root` block is unlayered, because Bootstrap 6 alpha.1 emits its own `:root` tokens unlayered; load shadcn-bootstrap after Bootstrap. The same CSS also works in plain HTML and server templates.
 
-**Status:** pre-release. Tokens, bridge and 8 components (Button, Badge, Card, Alert, Input, Label, Checkbox, Switch) are built, each as CSS plus React, Vue and Angular components. The rest of shadcn's 66 components are planned; the docs' Components page shows the status of each.
+**Status:** early release, `0.0.1` on npm and jsDelivr. <!-- x-release-please-version --> Bootstrap 6 is still in alpha, so pin exact versions. Tokens, bridge and 8 components (Button, Badge, Card, Alert, Input, Label, Checkbox, Switch) are built, each as CSS plus React, Vue and Angular components. The rest of shadcn's 66 components are planned; the docs' Components page shows the status of each.
 
 ## Use it in your framework
-
-Not on npm yet. Once `0.1.0` is published:
 
 ```bash
 npm install bootstrap@6.0.0-alpha.1 shadcn-bootstrap
@@ -49,15 +49,13 @@ Import Bootstrap's CSS first, then shadcn-bootstrap, once at the app root. Boots
 | Nuxt | `nuxt.config.ts`: `css: ["bootstrap/dist/css/bootstrap.min.css", "shadcn-bootstrap"]` | `plugins/bootstrap.client.ts`: `await import("bootstrap")` |
 | Angular | `angular.json` `styles`: Bootstrap's CSS, then `node_modules/shadcn-bootstrap/dist/css/shadcn-bootstrap.min.css` | `afterNextRender(() => import("bootstrap"))` in the root component |
 
-Then add components with the CLI (`npx shadcn-bootstrap add button card`) and use them like shadcn/ui. The docs have a full guide per framework, and every example has React, Vue, Angular and HTML tabs.
+Then add components with the CLI (`npx shadcn-bootstrap add button card`, planned for 0.1.0) and use them like shadcn/ui. Until the CLI ships, the component files are in the package under `node_modules/shadcn-bootstrap/dist/registry/<name>/` (`react/`, `vue/`, `angular/` and the CSS) to copy by hand. The docs have a full guide per framework, and every example has React, Vue, Angular and HTML tabs.
 
 ## Install from the CDN (no build step)
 
-Not on npm yet. Once `0.1.0` is published:
-
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-bootstrap@0.1.0/dist/css/shadcn-bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-bootstrap@0.0.1/dist/css/shadcn-bootstrap.min.css"> <!-- x-release-please-version -->
 <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js"></script>
 ```
 
@@ -79,9 +77,11 @@ npx shadcn-bootstrap add button card input
 
 Switch base color by loading a theme file after the bundle, or paste a block from the docs theme generator:
 
+<!-- x-release-please-start-version -->
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-bootstrap@0.1.0/dist/css/themes/slate.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shadcn-bootstrap@0.0.1/dist/css/themes/slate.css">
 ```
+<!-- x-release-please-end -->
 
 Dark mode follows the OS by default. Force it with Bootstrap's attribute on any element: `<html data-bs-theme="dark">`.
 

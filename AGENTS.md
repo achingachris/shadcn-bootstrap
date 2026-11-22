@@ -31,6 +31,8 @@ npm install
 
 CI (`.github/workflows/ci.yml`) runs `npm ci`, `npm run lint` and `npm run docs:build` on Node 24.
 
+The docs site deploys on Vercel from `main` (previews for other branches). The Vercel project's Root Directory is `docs`, so its config is `docs/vercel.json`: install with `cd .. && npm ci` (run from `docs/`, `npm ci` would install only the docs workspace and skip the root devDependencies), build with `cd .. && npm run docs:build`, output `dist`. Commands there run inside `docs/`, where the root `docs:*` scripts don't exist.
+
 ## Repository map
 
 ```
@@ -85,6 +87,7 @@ dist/                              Build output (gitignored, published to npm)
 - **MDX strips leading spaces from multi-line strings inside indented JSX attributes.** Put multi-line snippets in an `export const` at column 0 or a TypeScript module (see `docs/src/lib/framework-snippets.ts`), never inline in an attribute.
 - CLI output in the docs is the designed behaviour (the CLI isn't built yet); keep `planned` on those `<Terminal>`s.
 - Don't mention or link `agents/` or the implementation plan from the README or the docs site.
+- **Never hard-code the package version in the docs.** Use `VERSION` from `docs/src/lib/build-info.ts` (read from `package.json`, which release-please bumps) for npm and CDN URLs, and `CLI_VERSION` for anything about the planned CLI. The docs then follow each release with no edits.
 
 ### Generated files
 
@@ -123,5 +126,13 @@ Say "unofficial community port" wherever the project describes itself. Don't use
 1. Each push to `main` updates a release PR that bumps `package.json`, updates `.release-please-manifest.json` and writes `CHANGELOG.md`. Before 1.0, `feat:` and breaking changes bump the minor version and `fix:` bumps the patch; `docs:`, `chore:`, `ci:` and the like don't trigger a release.
 2. When the maintainer merges the release PR, the same workflow tags the release, creates the GitHub release and runs `npm publish` through npm trusted publishing (OIDC, no token). npm's staged publishing may hold the version for the maintainer's approval.
 3. Afterwards, `main` is merged back into `dev` so `dev` has the new version and changelog.
+
+**Keeping docs in step with releases.** Version strings in `README.md` are bumped by release-please (`extra-files` in `release-please-config.json`): a line ending in `<!-- x-release-please-version -->`, or a block between `<!-- x-release-please-start-version -->` and `<!-- x-release-please-end -->`. Every semver in a marked line or block is replaced, so never mark a line that also holds another version (such as `bootstrap@6.0.0-alpha.1`). When you add a versioned URL to the README, mark it.
+
+Release-please only bumps numbers. When a release changes what's true (the package or CLI is published, a component ships, a "planned" feature lands), update the prose too, in the same PR or straight after the merge-back into `dev`:
+
+- `README.md`: the **Status** paragraph, install sections, "planned for" notes.
+- Docs: the note at the top of `docs/src/pages/docs/installation.mdx`, `CLI_VERSION` and the `planned` flags on `<Terminal>`s once the CLI exists, and `release` in `registry/catalog.json` for components that shipped.
+- Then check with `npm view shadcn-bootstrap versions` and a jsDelivr URL that the version you're describing is really published.
 
 Never edit `version` in `package.json`, `.release-please-manifest.json` or `CHANGELOG.md` by hand, never run `npm version` or `npm publish` yourself, and keep the workflow file named `publish.yml` (npm's trusted publisher is registered for that name).

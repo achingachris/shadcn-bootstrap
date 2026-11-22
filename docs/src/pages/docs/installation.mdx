@@ -5,8 +5,9 @@ description: Load shadcn-bootstrap from a CDN, install it from npm, or copy comp
 ---
 import Example from "../../components/Example.astro";
 import Terminal from "../../components/Terminal.astro";
-import { bootstrap, shadcnBootstrapCdn, RELEASE_VERSION } from "../../lib/build-info";
+import { bootstrap, shadcnBootstrapCdn, VERSION, CLI_VERSION } from "../../lib/build-info";
 import { addOutput } from "../../lib/cli-output";
+import { installOutput } from "../../lib/framework-snippets";
 
 export const snippet1 = `✔ Wrote components.json
 ✔ Created css/tokens.css
@@ -17,7 +18,7 @@ Add these to your <head>, Bootstrap first:
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/bridge.css">`;
 
-> shadcn-bootstrap isn't on npm yet. Snippets use the first release, **{RELEASE_VERSION}**; until it's published, every preview on this page uses the local build in place of the CDN file.
+> The current release is **{VERSION}**, on [npm](https://www.npmjs.com/package/shadcn-bootstrap) and [jsDelivr](https://www.jsdelivr.com/package/npm/shadcn-bootstrap). Bootstrap 6 is still in alpha and so is this port, so pin exact versions.
 
 Using a framework? Follow its guide instead: [Next.js](/docs/frameworks/next/), [React](/docs/frameworks/react/), [Vue](/docs/frameworks/vue/) or [Angular](/docs/frameworks/angular/). They cover the CLI, the components, CSS imports, loading Bootstrap's JavaScript on the client, and dark mode. This page covers plain HTML projects and the parts every setup shares.
 
@@ -51,14 +52,13 @@ export const cdnPage = `<!doctype html>
 
 <Example code={cdnPage} document title="index.html" minHeight="8rem" />
 
-The bundle contains tokens, bridge and every built component. Integrity hashes for shadcn-bootstrap will be published with each release.
+The bundle contains tokens, bridge and every built component. Keep the version in the URL so an update never changes your page unannounced; jsDelivr's [package page](https://www.jsdelivr.com/package/npm/shadcn-bootstrap) gives an SRI hash for each file.
 
 ## npm
 
 <Terminal
   command={`npm install bootstrap@${bootstrap.version} shadcn-bootstrap`}
-  output={`added 2 packages in 1s`}
-  planned
+  output={installOutput}
 />
 
 Then import both stylesheets in order, from your bundler's CSS entry or a CSS file:
@@ -78,7 +78,7 @@ export const importCss = `@import "bootstrap/dist/css/bootstrap.css";
 
 ## CLI
 
-The CLI copies files into your project instead of linking a bundle, so you can edit them: CSS for every project, plus React, Vue or Angular components in framework projects. It's the shadcn workflow, and it arrives in {RELEASE_VERSION}. In a plain HTML project it looks like this:
+The CLI copies files into your project instead of linking a bundle, so you can edit them: CSS for every project, plus React, Vue or Angular components in framework projects. It's the shadcn workflow, and it arrives in {CLI_VERSION}. Until then, the same files ship in the npm package under `node_modules/shadcn-bootstrap/dist/registry/<name>/` (CSS, plus `react/`, `vue/` and `angular/` folders) for you to copy by hand. In a plain HTML project the CLI will look like this:
 
 <Terminal
   command="npx shadcn-bootstrap init"

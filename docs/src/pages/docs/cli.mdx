@@ -7,7 +7,7 @@ import Terminal from "../../components/Terminal.astro";
 import CodeBlock from "../../components/CodeBlock.astro";
 import FrameworkTabs from "../../components/FrameworkTabs.astro";
 import { next, vue, angular } from "../../lib/framework-snippets";
-import { bootstrap, RELEASE_VERSION } from "../../lib/build-info";
+import { bootstrap, CLI_VERSION } from "../../lib/build-info";
 import { addOutput } from "../../lib/cli-output";
 
 export const snippet1 = `? Where should CSS files go? css
@@ -21,7 +21,7 @@ Add these to your <head>, Bootstrap first:
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/bridge.css">`;
 export const snippet2 = `{
-  "registry": "https://cdn.jsdelivr.net/npm/shadcn-bootstrap@${RELEASE_VERSION}/dist/registry",
+  "registry": "https://cdn.jsdelivr.net/npm/shadcn-bootstrap@${CLI_VERSION}/dist/registry",
   "bootstrap": "${bootstrap.version}",
   "paths": {
     "styles": "styles",
@@ -34,14 +34,14 @@ export const snippet2 = `{
 }`;
 export const snippet3 = `✖ components/ui/button.tsx has local changes.
   Run "npx shadcn-bootstrap diff button" to compare, or pass --overwrite to replace it.`;
-export const snippet4 = `--- registry/button.css (${RELEASE_VERSION})
+export const snippet4 = `--- registry/button.css (${CLI_VERSION})
 +++ styles/components/button.css (yours)
 @@ -14,7 +14,7 @@
    .btn-solid {
      &:hover {
 -      --bs-btn-hover-bg: color-mix(in oklch, var(--bs-theme-bg) 90%, transparent);
 +      --bs-btn-hover-bg: color-mix(in oklch, var(--bs-theme-bg) 85%, transparent);`;
-export const snippet5 = `Components (shadcn-bootstrap ${RELEASE_VERSION})
+export const snippet5 = `Components (shadcn-bootstrap ${CLI_VERSION})
   ✔ button      installed
   ✔ checkbox    installed
   ✔ label       installed (dependency)
@@ -53,7 +53,7 @@ export const snippet5 = `Components (shadcn-bootstrap ${RELEASE_VERSION})
 
 The CLI is the `bin` of the `shadcn-bootstrap` npm package, so `npx` runs it with no install. It has no runtime dependencies and needs Node 18+. It downloads registry files from jsDelivr at the version pinned in `components.json`, so your CSS and the CLI stay in step.
 
-> The CLI ships in **{RELEASE_VERSION}**. Every terminal on this page is marked *planned* and shows the designed output.
+> The CLI ships in **{CLI_VERSION}**. Every terminal on this page is marked *planned* and shows the designed output.
 
 ## init
 
