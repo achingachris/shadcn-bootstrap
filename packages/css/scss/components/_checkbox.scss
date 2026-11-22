@@ -1,0 +1,44 @@
+// Checkbox: shadcn's checkbox on Bootstrap 6's .check (applied to the <input>).
+@use "../mixins" as *;
+
+@layer custom {
+  .check {
+    --bs-check-size: 1rem;
+    --bs-check-bg: light-dark(transparent, color-mix(in oklch, var(--input) 30%, transparent));
+    --bs-check-border-color: var(--input);
+    --bs-check-checked-bg: var(--primary);
+    --bs-check-checked-border-color: var(--primary);
+    --bs-check-disabled-bg: var(--bs-check-bg);
+
+    border-radius: 4px;
+    box-shadow: $shadow-xs;
+
+    &::before {
+      background-color: var(--primary-foreground);
+    }
+
+    &:focus-visible {
+      border-color: var(--ring);
+
+      @include focus-ring;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &[aria-invalid="true"],
+    &.is-invalid {
+      border-color: var(--destructive);
+    }
+  }
+
+  .check-sm {
+    --bs-check-size: 0.875rem;
+  }
+
+  .check-lg {
+    --bs-check-size: 1.25rem;
+  }
+}

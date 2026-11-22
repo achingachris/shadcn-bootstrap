@@ -1,0 +1,27 @@
+---
+// Tabs for React / Next.js, Vue, Angular and plain HTML. The choice is shared by every
+// tab group on the site and remembered (see lib/client.ts). Fill the named slots.
+interface Props { label?: string }
+const { label = "Framework" } = Astro.props;
+const tabs = [
+  { id: "react", label: "React / Next.js" },
+  { id: "vue", label: "Vue" },
+  { id: "angular", label: "Angular" },
+  { id: "html", label: "HTML" },
+].filter((t) => Astro.slots.has(t.id));
+---
+<div class="docs-syntax" data-syntax-group>
+  <div class="docs-syntax-tabs" role="tablist" aria-label={label}>
+    {tabs.map((t, i) => (
+      <button type="button" role="tab" data-syntax-tab={t.id} aria-selected={i === 0 ? "true" : "false"}>{t.label}</button>
+    ))}
+  </div>
+  {tabs.map((t, i) => (
+    <div role="tabpanel" data-syntax-panel={t.id} hidden={i !== 0}>
+      {t.id === "react" && <slot name="react" />}
+      {t.id === "vue" && <slot name="vue" />}
+      {t.id === "angular" && <slot name="angular" />}
+      {t.id === "html" && <slot name="html" />}
+    </div>
+  ))}
+</div>

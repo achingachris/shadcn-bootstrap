@@ -1,0 +1,74 @@
+{
+  "name": "shadcn-bootstrap",
+  "version": "0.0.1",
+  "description": "Unofficial community port of shadcn/ui for Bootstrap 6: shadcn-style components for React, Next.js, Vue and Angular, plus the CSS that styles them (works with plain HTML too).",
+  "keywords": [
+    "bootstrap",
+    "bootstrap6",
+    "shadcn",
+    "shadcn-ui",
+    "css",
+    "design-tokens",
+    "components",
+    "react",
+    "nextjs",
+    "vue",
+    "angular"
+  ],
+  "license": "MIT",
+  "author": "Chris Achinga",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "style": "dist/css/shadcn-bootstrap.min.css",
+  "jsdelivr": "dist/css/shadcn-bootstrap.min.css",
+  "exports": {
+    ".": "./dist/css/shadcn-bootstrap.min.css",
+    "./tokens.css": "./dist/css/tokens.css",
+    "./bridge.css": "./dist/css/bridge.css",
+    "./themes/*": "./dist/css/themes/*",
+    "./registry/*": "./dist/registry/*",
+    "./package.json": "./package.json",
+    "./dist/*": "./dist/*"
+  },
+  "peerDependencies": {
+    "bootstrap": "^6.0.0-alpha.1"
+  },
+  "peerDependenciesMeta": {
+    "bootstrap": {
+      "optional": true
+    }
+  },
+  "workspaces": [
+    "docs"
+  ],
+  "browserslist": [
+    "chrome >= 130",
+    "edge >= 130",
+    "firefox >= 132",
+    "safari >= 18"
+  ],
+  "scripts": {
+    "build:css": "node scripts/build-css.mjs",
+    "build:registry": "node scripts/build-registry.mjs",
+    "build": "npm run build:css && npm run build:registry && npm run build:plan",
+    "lint": "stylelint \"packages/css/**/*.scss\"",
+    "docs:dev": "npm run dev -w docs",
+    "docs:build": "npm run build && npm run build -w docs",
+    "build:plan": "node scripts/build-plan.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0",
+    "autoprefixer": "10.7.0",
+    "bootstrap": "6.0.0-alpha.1",
+    "cssnano": "9.9.0",
+    "postcss": "8.5.33",
+    "sass": "1.108.2",
+    "stylelint": "18.1.0",
+    "stylelint-config-standard-scss": "18.0.0"
+  }
+}

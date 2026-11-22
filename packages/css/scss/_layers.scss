@@ -1,0 +1,5 @@
+// Bootstrap 6's cascade-layer order. Declared first in every shadcn-bootstrap file so
+// that loading our CSS before Bootstrap can't change the order. shadcn-bootstrap puts
+// all of its rules in `custom`: above Bootstrap's components and forms, below its
+// helpers and utilities, so utility classes still win.
+@layer colors, config, root, reboot, layout, content, forms, components, custom, helpers, utilities;

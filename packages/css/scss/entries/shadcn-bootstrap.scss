@@ -1,0 +1,12 @@
+// shadcn-bootstrap: bridge + all components. The build prepends tokens.css
+// (generated from packages/css/themes/themes.mjs) to produce the full bundle.
+@use "../layers";
+@use "../bridge";
+@use "../components/button";
+@use "../components/badge";
+@use "../components/card";
+@use "../components/alert";
+@use "../components/input";
+@use "../components/label";
+@use "../components/checkbox";
+@use "../components/switch";

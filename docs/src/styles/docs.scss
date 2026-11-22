@@ -1,0 +1,714 @@
+// Docs site chrome. Lives in Bootstrap's `custom` layer like the library itself, so
+// Bootstrap utilities used in the docs markup still win.
+@layer custom {
+  :root {
+    --docs-header-height: 3.5rem;
+    --docs-sidebar-width: 15rem;
+    --docs-toc-width: 13rem;
+  }
+
+  html {
+    scroll-padding-top: calc(var(--docs-header-height) + 3rem);
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  a {
+    text-underline-offset: 4px;
+  }
+
+  .docs-skip:focus {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 100;
+    padding: 0.5rem 1rem;
+    background: var(--background);
+    border-radius: var(--bs-radius-5);
+  }
+
+  .docs-container {
+    width: 100%;
+    max-width: 90rem;
+    padding-inline: 1rem;
+    margin-inline: auto;
+
+    @media (width >= 768px) {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  // Header
+  .docs-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background-color: color-mix(in oklch, var(--background) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .docs-header-inner {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    height: var(--docs-header-height);
+  }
+
+  .docs-logo {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-weight: 600;
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+
+    img {
+      border-radius: 6px;
+    }
+  }
+
+  .docs-header-nav {
+    gap: 1.25rem;
+    margin-inline-start: 1rem;
+    font-size: 0.875rem;
+
+    a {
+      color: var(--muted-foreground);
+      text-decoration: none;
+
+      &:hover,
+      &[aria-current="page"] {
+        color: var(--foreground);
+      }
+    }
+  }
+
+  .docs-header-actions {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    margin-inline-start: auto;
+  }
+
+  .docs-jump {
+    width: 13rem;
+    margin-inline-end: 0.5rem;
+  }
+
+  .docs-theme-toggle {
+    display: inline-flex;
+    padding: 2px;
+    border: 1px solid var(--border);
+    border-radius: var(--bs-radius-5);
+
+    .btn[aria-pressed="true"] {
+      background-color: var(--accent);
+      color: var(--accent-foreground);
+    }
+
+    .btn {
+      --bs-btn-min-height: 1.75rem;
+    }
+  }
+
+  .docs-banner {
+    padding: 0.375rem 1rem;
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--muted-foreground);
+    border-top: 1px solid var(--border);
+  }
+
+  // Shell: sidebar | content | toc
+  .docs-shell {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+
+    @media (width >= 992px) {
+      grid-template-columns: var(--docs-sidebar-width) minmax(0, 1fr);
+    }
+
+    @media (width >= 1280px) {
+      grid-template-columns: var(--docs-sidebar-width) minmax(0, 1fr) var(--docs-toc-width);
+    }
+  }
+
+  .docs-sidebar {
+    display: none;
+    position: sticky;
+    top: calc(var(--docs-header-height) + 1.75rem);
+    height: calc(100vh - var(--docs-header-height) - 1.75rem);
+    overflow-y: auto;
+    padding-block: 1.5rem;
+    padding-inline-end: 0.5rem;
+    scrollbar-width: thin;
+
+    @media (width >= 992px) {
+      display: block;
+    }
+
+    .sidebar-open & {
+      position: fixed;
+      top: calc(var(--docs-header-height) + 1.75rem);
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 30;
+      display: block;
+      height: auto;
+      padding-inline: 1.5rem;
+      background-color: var(--background);
+    }
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.875rem;
+      color: var(--foreground);
+      text-decoration: none;
+      border-radius: var(--bs-radius-5);
+
+      &:hover {
+        background-color: var(--accent);
+      }
+
+      &[aria-current="page"] {
+        font-weight: 500;
+        background-color: var(--accent);
+      }
+
+      &.is-planned {
+        color: var(--muted-foreground);
+      }
+    }
+  }
+
+  .docs-sidebar-section + .docs-sidebar-section {
+    margin-top: 1.5rem;
+  }
+
+  .docs-sidebar-heading {
+    padding-inline: 0.5rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+
+  .docs-main {
+    min-width: 0;
+    padding-block: 2rem 4rem;
+  }
+
+  .docs-page-header {
+    margin-bottom: 2rem;
+
+    h1 {
+      margin-bottom: 0.5rem;
+      font-size: 1.875rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+  }
+
+  .docs-eyebrow {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  .docs-lead {
+    max-width: 42rem;
+    font-size: 1.0625rem;
+    color: var(--muted-foreground);
+  }
+
+  // Prose inside docs pages
+  .docs-content {
+    max-width: 52rem;
+    line-height: 1.7;
+
+    > h2 {
+      padding-bottom: 0.5rem;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      font-size: 1.375rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    > h3 {
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    > p,
+    > ul,
+    > ol {
+      margin-bottom: 1rem;
+    }
+
+    > table,
+    .docs-table {
+      width: 100%;
+      margin-block: 1rem 1.5rem;
+      font-size: 0.875rem;
+      border-collapse: collapse;
+
+      th,
+      td {
+        padding: 0.5rem 0.75rem;
+        text-align: start;
+        vertical-align: top;
+        border-bottom: 1px solid var(--border);
+      }
+
+      th {
+        font-weight: 500;
+        color: var(--muted-foreground);
+      }
+    }
+
+    :not(pre) > code {
+      padding: 0.125rem 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.8125em;
+      background-color: var(--muted);
+      border-radius: 0.25rem;
+    }
+
+    blockquote {
+      padding: 0.75rem 1rem;
+      margin-block: 1rem;
+      color: var(--muted-foreground);
+      border-inline-start: 3px solid var(--border);
+    }
+  }
+
+  .docs-table-wrap {
+    overflow-x: auto;
+  }
+
+  // TOC
+  .docs-toc {
+    display: none;
+    position: sticky;
+    top: calc(var(--docs-header-height) + 1.75rem);
+    align-self: start;
+    padding-block: 2rem;
+    font-size: 0.8125rem;
+
+    @media (width >= 1280px) {
+      display: block;
+    }
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    li {
+      padding-block: 0.25rem;
+    }
+
+    .depth-3 {
+      padding-inline-start: 0.75rem;
+    }
+
+    a {
+      color: var(--muted-foreground);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--foreground);
+      }
+    }
+  }
+
+  .docs-toc-title {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  // Example: output above code
+  .docs-example {
+    margin-block: 1.25rem 2rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--bs-radius-6);
+  }
+
+  .docs-example-bar,
+  .docs-code-bar,
+  .docs-terminal-bar {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    min-height: 2.5rem;
+    padding-inline: 0.75rem 0.375rem;
+    font-size: 0.8125rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .docs-example-title {
+    font-weight: 500;
+  }
+
+  .docs-example-modes {
+    display: inline-flex;
+    gap: 0.125rem;
+    margin-inline-start: auto;
+
+    .btn {
+      --bs-btn-min-height: 1.75rem;
+      --bs-btn-padding-x: 0.5rem;
+
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .btn[aria-pressed="true"] {
+      color: var(--accent-foreground);
+      background-color: var(--accent);
+    }
+  }
+
+  .docs-example-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    color: var(--foreground);
+    background-color: var(--background);
+
+    &.align-start {
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    > * {
+      max-width: 100%;
+    }
+  }
+
+  .docs-example-frame {
+    display: block;
+    width: 100%;
+    border: 0;
+    background-color: var(--background);
+  }
+
+  .docs-example-caption {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    border-top: 1px solid var(--border);
+  }
+
+  .docs-example-code {
+    border-top: 1px solid var(--border);
+
+    .docs-code {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .docs-code + .docs-code {
+      border-top: 1px solid var(--border);
+    }
+  }
+
+  // Syntax switch inside examples
+  .docs-syntax-tabs {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.375rem 0.5rem 0;
+    background-color: var(--bs-bg-1);
+    border-bottom: 1px solid var(--border);
+
+    button {
+      padding: 0.375rem 0.625rem;
+      margin-bottom: -1px;
+      font-size: 0.8125rem;
+      color: var(--muted-foreground);
+      background: none;
+      border: 0;
+      border-bottom: 2px solid transparent;
+
+      &[aria-selected="true"] {
+        color: var(--foreground);
+        border-bottom-color: var(--foreground);
+      }
+
+      &:focus-visible {
+        outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring-color);
+        border-radius: var(--bs-radius-3);
+      }
+    }
+  }
+
+  .docs-syntax > [role="tabpanel"] > .docs-code,
+  .docs-syntax > [role="tabpanel"] > .docs-terminal {
+    margin-top: 0;
+  }
+
+  .docs-syntax:not(.docs-example-code .docs-syntax) {
+    margin-block: 1.25rem 2rem;
+
+    .docs-syntax-tabs {
+      background: none;
+      padding-inline: 0;
+    }
+
+    [role="tabpanel"] {
+      padding-top: 0.75rem;
+    }
+  }
+
+  .docs-tab-note {
+    padding: 1rem;
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    border: 1px dashed var(--border);
+    border-radius: var(--bs-radius-6);
+  }
+
+  // Code blocks (Shiki dual theme via CSS variables)
+  .docs-code {
+    margin-block: 1rem 1.5rem;
+    overflow: hidden;
+    background-color: var(--bs-bg-1);
+    border: 1px solid var(--border);
+    border-radius: var(--bs-radius-6);
+
+    pre {
+      direction: ltr;
+      text-align: start;
+      max-height: 28rem;
+      padding: 1rem;
+      margin: 0;
+      overflow: auto;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      background-color: transparent !important;
+    }
+  }
+
+  .docs-code-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+
+  .docs-code-bar .docs-copy,
+  .docs-terminal-bar .docs-copy {
+    margin-inline-start: auto;
+  }
+
+  .astro-code,
+  .astro-code span {
+    color: light-dark(var(--shiki-light), var(--shiki-dark));
+  }
+
+  .docs-copy {
+    --bs-btn-min-height: 1.75rem;
+
+    color: var(--muted-foreground);
+
+    .icon-check {
+      display: none;
+    }
+
+    &.is-copied {
+      .icon-copy {
+        display: none;
+      }
+
+      .icon-check {
+        display: block;
+      }
+    }
+  }
+
+  // Terminal: command, then its output
+  .docs-terminal {
+    margin-block: 1.25rem 2rem;
+    overflow: hidden;
+    color: oklch(0.92 0 0);
+    background-color: oklch(0.18 0.005 285.823);
+    border: 1px solid light-dark(transparent, var(--border));
+    border-radius: var(--bs-radius-6);
+
+    .badge {
+      --bs-badge-color: oklch(0.8 0 0);
+      --bs-badge-border-color: oklch(1 0 0 / 20%);
+    }
+
+    .docs-copy {
+      color: oklch(0.75 0 0);
+
+      &:hover {
+        color: oklch(0.95 0 0);
+        background-color: oklch(1 0 0 / 10%);
+      }
+    }
+  }
+
+  .docs-terminal-bar {
+    border-bottom-color: oklch(1 0 0 / 10%);
+  }
+
+  .docs-terminal-dots {
+    display: inline-flex;
+    gap: 0.375rem;
+
+    i {
+      width: 0.625rem;
+      height: 0.625rem;
+      background: oklch(1 0 0 / 20%);
+      border-radius: 50%;
+    }
+  }
+
+  .docs-terminal-title {
+    font-size: 0.75rem;
+    color: oklch(0.75 0 0);
+  }
+
+  .docs-terminal-body {
+    direction: ltr;
+    padding: 1rem;
+    margin: 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: inherit;
+  }
+
+  .docs-terminal-prompt {
+    color: oklch(0.65 0 0);
+    user-select: none;
+  }
+
+  .docs-terminal-cmd {
+    color: oklch(0.97 0 0);
+  }
+
+  .docs-terminal-output {
+    display: block;
+    margin-top: 0.5rem;
+    color: oklch(0.75 0 0);
+    white-space: pre-wrap;
+  }
+
+  // Footer
+  .docs-footer {
+    padding-block: 1.5rem;
+    margin-top: auto;
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    border-top: 1px solid var(--border);
+
+    p {
+      max-width: 52rem;
+      margin: 0;
+    }
+
+    a {
+      color: var(--foreground);
+    }
+  }
+
+  // Swatches (theming page, generator)
+  .docs-swatch {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    vertical-align: middle;
+    border: 1px solid var(--border);
+    border-radius: 0.375rem;
+  }
+
+  // Component grid (index + landing)
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 0.75rem;
+    margin-block: 1rem 2rem;
+  }
+
+  .docs-grid-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 1rem;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: var(--bs-radius-6);
+    transition: background-color 0.15s;
+
+    &:hover {
+      background-color: var(--bs-bg-1);
+    }
+
+    strong {
+      font-weight: 500;
+    }
+
+    span {
+      font-size: 0.8125rem;
+      color: var(--muted-foreground);
+    }
+
+    .badge {
+      align-self: flex-start;
+    }
+  }
+
+  .docs-meta {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1.5rem;
+    padding: 1rem 1.25rem;
+    margin-block: 1rem 2rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: var(--bs-radius-6);
+
+    dt {
+      font-weight: 500;
+      color: var(--muted-foreground);
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+}

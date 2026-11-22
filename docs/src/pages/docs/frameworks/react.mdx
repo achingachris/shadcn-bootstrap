@@ -1,0 +1,41 @@
+---
+layout: ../../../layouts/DocsLayout.astro
+title: React
+eyebrow: Frameworks
+description: Use shadcn-bootstrap components in a React app built with Vite.
+---
+import Example from "../../../components/Example.astro";
+import Terminal from "../../../components/Terminal.astro";
+import { installCommand, installOutput, addCommand, demoHtml, jsDemoHtml, modeToggleHtml, react } from "../../../lib/framework-snippets";
+
+The CLI copies components into `src/components/ui/` and you use them like shadcn/ui: `<Button variant="outline">`, `<Card>`, `<CardHeader>`. They render Bootstrap 6 classes, styled by shadcn-bootstrap's CSS. This guide uses Vite; for server rendering, see [Next.js](/docs/frameworks/next/).
+
+## Install
+
+<Terminal command={installCommand} output={installOutput} planned />
+
+<Terminal command="npx shadcn-bootstrap init" output={react.init} planned />
+
+The components import from `@/`, so add the alias to `vite.config.ts` and `tsconfig.json` if your template doesn't have it.
+
+## Add components
+
+<Terminal command={addCommand} output={react.add} planned />
+
+## Import CSS and JavaScript
+
+In `main.tsx`, import Bootstrap's CSS, then shadcn-bootstrap's files, then Bootstrap's JavaScript. Without server rendering it can load at the top level. It listens on `document`, so `data-bs-*` attributes work in everything React renders later.
+
+<Example title="Output: data-bs-toggle works" label="src/main.tsx" lang="tsx" code={react.main} preview={jsDemoHtml} js minHeight="14rem" />
+
+## Use components
+
+<Example title="Output" label="src/App.tsx" lang="tsx" code={react.app} preview={demoHtml} minHeight="20rem" />
+
+Every component page shows its examples in the **React / Next.js** tab.
+
+## Dark mode
+
+<Example title="Output: toggles the preview" label="src/components/mode-toggle.tsx" lang="tsx" code={react.modeToggle} preview={modeToggleHtml} frame minHeight="8rem" />
+
+To restore the saved mode without a flash, add an inline script to `index.html`'s `<head>` that sets `data-bs-theme` from `localStorage` before the CSS loads.

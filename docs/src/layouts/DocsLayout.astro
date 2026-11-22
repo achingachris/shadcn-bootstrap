@@ -1,0 +1,37 @@
+---
+// Layout for docs pages. MDX pages get `frontmatter` and `headings` from Astro;
+// .astro pages pass `title`, `description` and `headings` directly.
+import Base from "./Base.astro";
+import Sidebar from "../components/Sidebar.astro";
+import Toc from "../components/Toc.astro";
+
+interface Props {
+  frontmatter?: { title: string; description?: string; eyebrow?: string };
+  title?: string;
+  description?: string;
+  eyebrow?: string;
+  headings?: { depth: number; slug: string; text: string }[];
+}
+const p = Astro.props;
+const title = p.frontmatter?.title ?? p.title ?? "";
+const description = p.frontmatter?.description ?? p.description;
+const eyebrow = p.frontmatter?.eyebrow ?? p.eyebrow ?? "Docs";
+const headings = p.headings ?? [];
+---
+<Base title={title} description={description}>
+  <div class="docs-container docs-shell">
+    <Sidebar />
+    <main id="main" class="docs-main">
+      <div class="docs-page-header">
+        <p class="docs-eyebrow">{eyebrow}</p>
+        <h1>{title}</h1>
+        {description && <p class="docs-lead">{description}</p>}
+        <slot name="header" />
+      </div>
+      <div class="docs-content">
+        <slot />
+      </div>
+    </main>
+    <Toc headings={headings} />
+  </div>
+</Base>

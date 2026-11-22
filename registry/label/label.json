@@ -1,0 +1,42 @@
+{
+  "$schema": "../schema.json#/$defs/manifest",
+  "name": "label",
+  "title": "Label",
+  "description": "Renders an accessible label associated with controls.",
+  "tier": 1,
+  "bootstrap": {
+    "classes": [
+      ".form-label"
+    ]
+  },
+  "files": [
+    {
+      "path": "label.css",
+      "type": "css"
+    },
+    {
+      "path": "label.example.html",
+      "type": "example"
+    },
+    {
+      "path": "react/label.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Label.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/label.ts",
+      "type": "angular"
+    }
+  ],
+  "registryDependencies": [],
+  "cssVars": [
+    "--foreground"
+  ]
+}

@@ -1,0 +1,28 @@
+---
+import { gettingStarted, frameworkNav, componentNav } from "../lib/nav";
+const path = Astro.url.pathname;
+const sections = [
+  { title: "Getting started", items: gettingStarted },
+  { title: "Frameworks", items: frameworkNav },
+  { title: "Components", items: componentNav },
+];
+---
+<aside class="docs-sidebar" id="docs-sidebar">
+  <nav aria-label="Docs">
+    {sections.map((s) => (
+      <div class="docs-sidebar-section">
+        <h2 class="docs-sidebar-heading">{s.title}</h2>
+        <ul>
+          {s.items.map((item) => (
+            <li>
+              <a href={item.href} aria-current={path === item.href ? "page" : undefined} class:list={[item.status === "planned" && "is-planned"]}>
+                {item.title}
+                {item.status === "planned" && <span class="visually-hidden"> (planned)</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </nav>
+</aside>

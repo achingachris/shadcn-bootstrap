@@ -1,0 +1,139 @@
+---
+import DocsLayout from "../layouts/DocsLayout.astro";
+import CopyButton from "../components/CopyButton.astro";
+import { baseColors, accentColors, radii, renderTheme, DEFAULT_THEME } from "../../../packages/css/themes/themes.mjs";
+
+const initial = renderTheme(DEFAULT_THEME);
+const scoped = renderTheme(DEFAULT_THEME, { selector: '[data-sb-theme="generator"]', layer: false, header: false });
+const swatch = (name: string) => {
+  const a = (accentColors as any)[name];
+  return a.light ? a.light[0] : (baseColors as any).zinc.tokens.primary[0];
+};
+const headings = [
+  { depth: 2, slug: "preview", text: "Preview" },
+  { depth: 2, slug: "css", text: "CSS" },
+];
+---
+<DocsLayout title="Theme generator" eyebrow="Themes" description="Pick a base color, an accent and a radius. The preview is the output of the CSS below it; paste that CSS after shadcn-bootstrap." headings={headings}>
+  <style id="generator-style" set:html={scoped}></style>
+
+  <form class="generator-controls" data-generator aria-label="Theme options">
+    <fieldset>
+      <legend class="form-label">Base color</legend>
+      <div class="d-flex flex-wrap gap-2">
+        {Object.entries(baseColors).map(([name, b]) => (
+          <label class="btn btn-outline btn-sm btn-check">
+            <input type="radio" name="base" value={name} checked={name === DEFAULT_THEME.base}>
+            <span class="docs-swatch" style={`background:${(b as any).tokens.primary[0]}; width: 0.875rem; height: 0.875rem`}></span>{(b as any).label}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend class="form-label">Accent</legend>
+      <div class="d-flex flex-wrap gap-2">
+        {Object.entries(accentColors).map(([name, a]) => (
+          <label class="btn btn-outline btn-sm btn-check">
+            <input type="radio" name="accent" value={name} checked={name === DEFAULT_THEME.accent}>
+            <span class="docs-swatch" style={`background:${swatch(name)}; width: 0.875rem; height: 0.875rem`}></span>{(a as any).label}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend class="form-label">Radius</legend>
+      <div class="d-flex flex-wrap gap-2">
+        {radii.map((r) => (
+          <label class="btn btn-outline btn-sm btn-check">
+            <input type="radio" name="radius" value={r} checked={r === DEFAULT_THEME.radius}>{r}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  </form>
+
+  <h2 id="preview">Preview</h2>
+  <figure class="docs-example" data-example>
+    <div class="docs-example-bar">
+      <span class="docs-example-title">Output of the CSS below</span>
+      <div class="docs-example-modes" role="group" aria-label="Preview color mode">
+        <button type="button" class="btn btn-text btn-sm" data-example-mode="light" aria-pressed="false">Light</button>
+        <button type="button" class="btn btn-text btn-sm" data-example-mode="dark" aria-pressed="false">Dark</button>
+      </div>
+    </div>
+    <div class="docs-example-preview generator-preview" data-sb-theme="generator">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Create an account</h3>
+          <p class="card-description">Enter your email below to create your account.</p>
+        </div>
+        <div class="card-body d-grid gap-3">
+          <div class="d-grid gap-2">
+            <label class="form-label mb-0" for="gen-email">Email</label>
+            <input class="form-control" id="gen-email" type="email" placeholder="m@example.com">
+          </div>
+          <div class="d-flex align-items-center gap-2"><input class="check" type="checkbox" id="gen-terms" checked><label for="gen-terms">Accept terms</label></div>
+          <div class="d-flex align-items-center gap-2"><div class="switch"><input type="checkbox" role="switch" id="gen-news" checked></div><label for="gen-news">Newsletter</label></div>
+        </div>
+        <div class="card-footer"><button class="btn btn-solid theme-primary w-100">Create account</button></div>
+      </div>
+      <div class="d-grid gap-3 align-content-start" style="min-width: 16rem; flex: 1">
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn btn-solid theme-primary">Primary</button>
+          <button class="btn btn-solid theme-secondary">Secondary</button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-text">Ghost</button>
+          <button class="btn btn-solid theme-danger">Delete</button>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge">Badge</span><span class="badge theme-secondary">Secondary</span><span class="badge badge-outline">Outline</span><span class="badge theme-danger">Destructive</span>
+        </div>
+        <div class="alert" role="status">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          <div class="alert-title">Theme applied</div>
+          <div class="alert-description">Every component reads the same tokens.</div>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <h2 id="css">CSS</h2>
+  <p>Save as <code>tokens.css</code> (replacing the one <code>init</code> wrote), or paste after the shadcn-bootstrap bundle.</p>
+  <div class="docs-code">
+    <div class="docs-code-bar">
+      <span class="docs-code-label">tokens.css</span>
+      <span data-generator-copy><CopyButton code={initial} /></span>
+    </div>
+    <pre><code data-generator-output>{initial}</code></pre>
+  </div>
+</DocsLayout>
+
+<script>
+  import { renderTheme } from "../../../packages/css/themes/themes.mjs";
+
+  const form = document.querySelector<HTMLFormElement>("[data-generator]")!;
+  const style = document.getElementById("generator-style")!;
+  const output = document.querySelector<HTMLElement>("[data-generator-output]")!;
+  const copy = document.querySelector<HTMLButtonElement>("[data-generator-copy] [data-copy]")!;
+
+  function update() {
+    const data = new FormData(form);
+    const theme = { base: String(data.get("base")), accent: String(data.get("accent")), radius: Number(data.get("radius")) };
+    style.textContent = renderTheme(theme, { selector: '[data-sb-theme="generator"]', layer: false, header: false });
+    const css = renderTheme(theme);
+    output.textContent = css;
+    copy.dataset.copy = css;
+  }
+  form.addEventListener("change", update);
+</script>
+
+<style is:global>
+  @layer custom {
+    .generator-controls { display: grid; gap: 1.25rem; margin-bottom: 1rem; }
+    .generator-controls fieldset { padding: 0; margin: 0; border: 0; }
+    .generator-controls .btn-check { gap: 0.375rem; }
+    .generator-controls .btn-check:has(input:checked) { border-color: var(--ring); background-color: var(--accent); color: var(--accent-foreground); }
+    .generator-preview { align-items: flex-start; }
+    .generator-preview > .card { width: 20rem; }
+  }
+</style>

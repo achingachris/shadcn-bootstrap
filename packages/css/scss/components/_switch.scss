@@ -1,0 +1,69 @@
+// Switch: shadcn's switch on Bootstrap 6's .switch wrapper.
+//
+//   <div class="switch"><input type="checkbox" role="switch" id="x"></div>
+//   <label for="x">Label</label>
+@use "../mixins" as *;
+
+@layer custom {
+  .switch {
+    --bs-switch-height: 1.15rem;
+    --bs-switch-width: 2rem;
+    --bs-switch-padding: 0px;
+    --bs-switch-border-width: 1px;
+    --bs-switch-border-color: transparent;
+    --bs-switch-bg: light-dark(var(--input), color-mix(in oklch, var(--input) 80%, transparent));
+    --bs-switch-indicator-bg: light-dark(var(--background), var(--foreground));
+    --bs-switch-checked-bg: var(--primary);
+    --bs-switch-checked-border-color: transparent;
+    --bs-switch-disabled-bg: var(--bs-switch-bg);
+    --bs-switch-disabled-indicator-bg: var(--bs-switch-indicator-bg);
+    --bs-switch-transition-duration: 0.15s;
+    --bs-switch-transition-timing: ease;
+
+    box-shadow: $shadow-xs;
+
+    &::before {
+      background-color: var(--bs-switch-indicator-bg);
+      box-shadow: none;
+    }
+
+    &:has(input:checked)::before {
+      background-color: light-dark(var(--background), var(--primary-foreground));
+    }
+
+    input {
+      cursor: pointer;
+    }
+
+    // Ring on keyboard focus only (Bootstrap shows it on any focus-within).
+    &:focus-within {
+      outline: none;
+    }
+
+    &:has(input:focus-visible) {
+      @include focus-ring;
+    }
+
+    &:has(input:disabled) {
+      opacity: 0.5;
+
+      input {
+        cursor: not-allowed;
+      }
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  .switch-sm {
+    --bs-switch-height: 0.875rem;
+    --bs-switch-width: 1.5rem;
+  }
+
+  .switch-lg {
+    --bs-switch-height: 1.5rem;
+    --bs-switch-width: 2.75rem;
+  }
+}

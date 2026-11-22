@@ -1,0 +1,76 @@
+{
+  "$schema": "../schema.json#/$defs/manifest",
+  "name": "card",
+  "title": "Card",
+  "description": "Displays a card with header, content, and footer.",
+  "tier": 1,
+  "bootstrap": {
+    "classes": [
+      ".card",
+      ".card-header",
+      ".card-title",
+      ".card-description",
+      ".card-action",
+      ".card-body",
+      ".card-footer"
+    ]
+  },
+  "files": [
+    {
+      "path": "card.css",
+      "type": "css"
+    },
+    {
+      "path": "card.example.html",
+      "type": "example"
+    },
+    {
+      "path": "react/card.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Card.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardAction.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardContent.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardDescription.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardFooter.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardHeader.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/CardTitle.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/card.ts",
+      "type": "angular"
+    }
+  ],
+  "registryDependencies": [],
+  "cssVars": [
+    "--card",
+    "--card-foreground",
+    "--muted-foreground",
+    "--border",
+    "--radius"
+  ]
+}

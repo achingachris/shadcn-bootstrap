@@ -1,0 +1,119 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: CLI
+description: Copy components and their CSS into your React, Next.js, Vue, Angular or plain HTML project. Planned for 0.1.0; output below is the designed behaviour.
+---
+import Terminal from "../../components/Terminal.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import FrameworkTabs from "../../components/FrameworkTabs.astro";
+import { next, vue, angular } from "../../lib/framework-snippets";
+import { bootstrap, RELEASE_VERSION } from "../../lib/build-info";
+import { addOutput } from "../../lib/cli-output";
+
+export const snippet1 = `? Where should CSS files go? css
+? Base color: zinc
+✔ Wrote components.json
+✔ Created css/tokens.css
+✔ Created css/bridge.css
+
+Add these to your <head>, Bootstrap first:
+  <link rel="stylesheet" href="${bootstrap.css.href}" integrity="${bootstrap.css.integrity}" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/bridge.css">`;
+export const snippet2 = `{
+  "registry": "https://cdn.jsdelivr.net/npm/shadcn-bootstrap@${RELEASE_VERSION}/dist/registry",
+  "bootstrap": "${bootstrap.version}",
+  "paths": {
+    "styles": "styles",
+    "components": "components/ui",
+    "utils": "lib/utils"
+  },
+  "framework": "next",
+  "theme": "zinc",
+  "installed": {}
+}`;
+export const snippet3 = `✖ components/ui/button.tsx has local changes.
+  Run "npx shadcn-bootstrap diff button" to compare, or pass --overwrite to replace it.`;
+export const snippet4 = `--- registry/button.css (${RELEASE_VERSION})
++++ styles/components/button.css (yours)
+@@ -14,7 +14,7 @@
+   .btn-solid {
+     &:hover {
+-      --bs-btn-hover-bg: color-mix(in oklch, var(--bs-theme-bg) 90%, transparent);
++      --bs-btn-hover-bg: color-mix(in oklch, var(--bs-theme-bg) 85%, transparent);`;
+export const snippet5 = `Components (shadcn-bootstrap ${RELEASE_VERSION})
+  ✔ button      installed
+  ✔ checkbox    installed
+  ✔ label       installed (dependency)
+    alert
+    badge
+    card
+    input
+    switch`;
+
+The CLI is the `bin` of the `shadcn-bootstrap` npm package, so `npx` runs it with no install. It has no runtime dependencies and needs Node 18+. It downloads registry files from jsDelivr at the version pinned in `components.json`, so your CSS and the CLI stay in step.
+
+> The CLI ships in **{RELEASE_VERSION}**. Every terminal on this page is marked *planned* and shows the designed output.
+
+## init
+
+Detects your framework, writes `components.json`, copies `tokens.css`, `bridge.css` and an empty `components/index.css`, creates `lib/utils.ts` (the `cn` helper the React and Vue components use), and prints where to import the CSS. It never edits your existing source files.
+
+| Detected by | Framework | Components go to | CSS goes to | Prints imports for |
+| --- | --- | --- | --- | --- |
+| `next.config.*` | Next.js | `components/ui/*.tsx` | `styles/` | `app/layout.tsx` |
+| `vite.config.*` + `react` | React (Vite) | `src/components/ui/*.tsx` | `src/styles/` | `src/main.tsx` |
+| `vite.config.*` + `vue`, or `nuxt.config.*` | Vue / Nuxt | `src/components/ui/<name>/*.vue` | `src/styles/` / `assets/css/` | `src/main.ts` / `nuxt.config.ts` |
+| `angular.json` | Angular | `src/app/ui/*.ts` | `src/styles/` | `angular.json` `styles` |
+| none of these | Plain HTML | none (classes only) | `css/` | `<link>` tags with SRI |
+
+<FrameworkTabs label="Project type">
+  <Terminal slot="react" title="Next.js project" command="npx shadcn-bootstrap init" output={next.init} planned />
+  <Terminal slot="vue" title="Vue project" command="npx shadcn-bootstrap init" output={vue.init} planned />
+  <Terminal slot="angular" title="Angular project" command="npx shadcn-bootstrap init" output={angular.init} planned />
+  <Terminal slot="html" title="Plain HTML project" command="npx shadcn-bootstrap init" output={snippet1} planned />
+</FrameworkTabs>
+
+`init` writes this config (Next.js project shown). It's a file, not something that renders, so it's shown on its own:
+
+<CodeBlock
+  lang="json"
+  label="components.json"
+  code={snippet2}
+/>
+
+## add
+
+Resolves dependencies and copies each component: its CSS, plus the component source for your framework (`components/ui/checkbox.tsx`, `components/ui/checkbox/Checkbox.vue` or `src/app/ui/checkbox.ts`). It adds an `@import` for the CSS to `components/index.css`, records a hash of every file, and refuses to overwrite a file you've edited unless you pass `--overwrite`.
+
+<Terminal command="npx shadcn-bootstrap add checkbox" output={addOutput(["checkbox"], "react")} planned title="Next.js project" />
+
+<Terminal
+  command="npx shadcn-bootstrap add button"
+  output={snippet3}
+  planned
+/>
+
+## diff
+
+Shows what changed upstream compared with your copy.
+
+<Terminal
+  command="npx shadcn-bootstrap diff button"
+  output={snippet4}
+  planned
+/>
+
+## list
+
+Lists available components and marks the ones you've installed.
+
+<Terminal
+  command="npx shadcn-bootstrap list"
+  output={snippet5}
+  planned
+/>
+
+## Custom registries
+
+Point `registry` in `components.json` at your own URL to serve your team's components, the same way shadcn registries work. The format is the JSON Schema at `dist/registry/schema.json`.

@@ -1,0 +1,6 @@
+---
+interface Props { status: string; release?: string }
+const { status, release } = Astro.props;
+const text = status === "built" ? "Built" : status === "in-progress" ? "In progress" : `Planned${release ? ` · ${release}` : ""}`;
+---
+<span class:list={["badge", status === "built" ? "theme-secondary" : "badge-outline"]}>{text}</span>

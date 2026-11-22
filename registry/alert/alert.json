@@ -1,0 +1,68 @@
+{
+  "$schema": "../schema.json#/$defs/manifest",
+  "name": "alert",
+  "title": "Alert",
+  "description": "Displays a callout for user attention.",
+  "tier": 1,
+  "bootstrap": {
+    "classes": [
+      ".alert",
+      ".alert-title",
+      ".alert-description",
+      ".theme-danger"
+    ]
+  },
+  "files": [
+    {
+      "path": "alert.css",
+      "type": "css"
+    },
+    {
+      "path": "alert.example.html",
+      "type": "example"
+    },
+    {
+      "path": "react/alert.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Alert.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/AlertDescription.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/AlertTitle.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/alert.ts",
+      "type": "angular"
+    }
+  ],
+  "registryDependencies": [],
+  "cssVars": [
+    "--card",
+    "--card-foreground",
+    "--muted-foreground",
+    "--destructive",
+    "--border",
+    "--radius"
+  ],
+  "variants": [
+    {
+      "name": "default",
+      "classes": "alert"
+    },
+    {
+      "name": "destructive",
+      "classes": "alert theme-danger"
+    }
+  ]
+}

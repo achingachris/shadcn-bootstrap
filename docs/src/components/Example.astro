@@ -1,0 +1,85 @@
+---
+// A snippet with its rendered output above it. Both are always visible.
+//
+// - HTML (default): `code` renders inline in the page.
+// - CSS: pass `css` (shown as its own block). The preview renders in an iframe with
+//   Bootstrap 6 + shadcn-bootstrap + exactly that CSS, so the output comes from the CSS shown.
+// - `preview`: markup to render when `code` itself isn't markup (e.g. a CSS @import file).
+// - `document`: `code` is a full HTML page; it renders as-is in an iframe.
+// - `base`: which shadcn-bootstrap CSS the iframe loads before `css` ("none" = stock Bootstrap).
+// - `frameworks`: show the snippet as component usage for React / Next.js, Vue and Angular
+//   (converted from the HTML: <Button variant="outline">…), with the HTML for plain projects.
+//   One tab choice applies to every example on the site.
+// - `js`: load Bootstrap 6's JavaScript in the preview frame.
+import CodeBlock from "./CodeBlock.astro";
+import { frameDoc } from "../lib/build-info";
+import FrameworkTabs from "./FrameworkTabs.astro";
+import { toFrameworks } from "../lib/frameworks";
+
+interface Props {
+  code: string;
+  lang?: string;
+  css?: string;
+  preview?: string;
+  title?: string;
+  caption?: string;
+  label?: string;
+  document?: boolean;
+  frame?: boolean;
+  base?: "bundle" | "bridge" | "none";
+  align?: "center" | "start";
+  minHeight?: string;
+  frameworks?: boolean;
+  js?: boolean;
+}
+
+const {
+  code,
+  lang = "html",
+  css,
+  preview,
+  title,
+  caption,
+  label,
+  document = false,
+  base = "bundle",
+  align = "center",
+  minHeight = "10rem",
+  frameworks = false,
+  js = false,
+} = Astro.props;
+
+const source = code.replace(/^\n+|\s+$/g, "");
+const previewHtml = (preview ?? source).trim();
+const useFrame = Astro.props.frame ?? (Boolean(css) || document || js || base !== "bundle" || lang !== "html");
+const srcdoc = useFrame ? frameDoc({ html: previewHtml, css, base, document, js }) : "";
+const fw = frameworks ? toFrameworks(source) : null;
+---
+<figure class="docs-example" data-example>
+  <div class="docs-example-bar">
+    <span class="docs-example-title">{title ?? "Preview"}</span>
+    <div class="docs-example-modes" role="group" aria-label="Preview color mode">
+      <button type="button" class="btn btn-text btn-sm" data-example-mode="light" aria-pressed="false">Light</button>
+      <button type="button" class="btn btn-text btn-sm" data-example-mode="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  {useFrame ? (
+    <iframe class="docs-example-frame" srcdoc={srcdoc} title={`${title ?? "Example"} preview`} loading="lazy" style={`min-height:${minHeight}`}></iframe>
+  ) : (
+    <div class:list={["docs-example-preview", align === "start" && "align-start"]} style={`min-height:${minHeight}`} set:html={previewHtml} />
+  )}
+  {caption && <figcaption class="docs-example-caption">{caption}</figcaption>}
+  <div class="docs-example-code">
+    {css && <CodeBlock code={css} lang="css" label="CSS" />}
+    {fw ? (
+      <FrameworkTabs label="Code">
+        <CodeBlock slot="react" code={fw.react} lang="tsx" label="TSX" />
+        <CodeBlock slot="vue" code={fw.vue} lang="vue" label="Vue" />
+        <CodeBlock slot="angular" code={fw.angular} lang="html" label="Angular template" />
+        <CodeBlock slot="html" code={source} lang={lang} label="HTML (no framework)" />
+      </FrameworkTabs>
+    ) : (
+      <CodeBlock code={source} lang={lang} label={label ?? (document ? "index.html" : lang.toUpperCase())} />
+    )}
+  </div>
+</figure>

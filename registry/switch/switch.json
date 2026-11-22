@@ -1,0 +1,49 @@
+{
+  "$schema": "../schema.json#/$defs/manifest",
+  "name": "switch",
+  "title": "Switch",
+  "description": "A control that allows the user to toggle between checked and not checked.",
+  "tier": 1,
+  "bootstrap": {
+    "classes": [
+      ".switch"
+    ]
+  },
+  "files": [
+    {
+      "path": "switch.css",
+      "type": "css"
+    },
+    {
+      "path": "switch.example.html",
+      "type": "example"
+    },
+    {
+      "path": "react/switch.tsx",
+      "type": "react"
+    },
+    {
+      "path": "vue/Switch.vue",
+      "type": "vue"
+    },
+    {
+      "path": "vue/index.ts",
+      "type": "vue"
+    },
+    {
+      "path": "angular/switch.ts",
+      "type": "angular"
+    }
+  ],
+  "registryDependencies": [
+    "label"
+  ],
+  "cssVars": [
+    "--input",
+    "--primary",
+    "--primary-foreground",
+    "--background",
+    "--foreground",
+    "--ring"
+  ]
+}

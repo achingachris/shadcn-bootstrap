@@ -1,0 +1,62 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: Introduction
+description: The shadcn/ui look and "own your code" workflow for Bootstrap 6. Unofficial community port.
+---
+import Example from "../../components/Example.astro";
+import { catalog } from "../../lib/catalog";
+
+export const builtCount = catalog.components.filter((c) => c.status === "built").length;
+
+shadcn-bootstrap gives Bootstrap 6 projects the [shadcn/ui](https://ui.shadcn.com) look. Bootstrap stays stock and loads from its CDN. shadcn-bootstrap adds CSS on top, and a CLI copies that CSS into your project so you can edit it.
+
+It's built for **React, Next.js, Angular and Vue**. Like shadcn/ui, you get components (`<Button variant="outline">`, `<Card>`, `<CardHeader>`…) that a CLI copies into your project, so you own and edit them. Underneath, each component renders Bootstrap 6 classes, so plain HTML projects can use the same CSS with Bootstrap markup.
+
+> **Unofficial community port.** shadcn-bootstrap is not affiliated with or endorsed by shadcn. shadcn/ui is MIT licensed; its notice ships in this project's LICENSE.
+
+## Same markup, different look
+
+The CSS doesn't invent new class names: Bootstrap 6 markup looks like shadcn once it loads. Here is the same markup rendered with stock Bootstrap 6, then with shadcn-bootstrap added. The second example's tabs show the component version for each framework.
+
+export const sample = `<div class="d-flex flex-wrap gap-2 align-items-center">
+  <button class="btn btn-solid theme-primary">Primary</button>
+  <button class="btn btn-outline">Outline</button>
+  <span class="badge theme-secondary">Badge</span>
+  <input class="form-control" style="width: 12rem" placeholder="Email">
+  <div class="switch"><input type="checkbox" role="switch" aria-label="Switch" checked></div>
+</div>`;
+
+<Example code={sample} base="none" title="Stock Bootstrap 6" minHeight="8rem" />
+<Example code={sample} title="With shadcn-bootstrap" minHeight="8rem" frameworks />
+
+Code examples on this site have four tabs. **React / Next.js**, **Vue** and **Angular** show shadcn-style components (`<Button variant="outline">`, `<Card>`, `<CardHeader>`…) that you copy into your project with the CLI. **HTML** shows the plain Bootstrap markup for projects without a framework. Your choice applies to every example.
+
+## How it works
+
+shadcn-bootstrap is three layers of CSS, loaded after Bootstrap, plus a component per framework:
+
+| Layer | File | What it does |
+| --- | --- | --- |
+| Tokens | `tokens.css` | shadcn's variables (`--background`, `--primary`, `--ring`, `--radius`…). Each color is `light-dark(light, dark)`. |
+| Bridge | `bridge.css` | Maps the tokens onto Bootstrap 6's `--bs-*` variables. Plain Bootstrap markup already looks close to shadcn with just this. |
+| Component CSS | `button.css`, `card.css`… | Per-component details: variants, spacing, focus rings. Every framework uses the same files. |
+| Components | `button.tsx`, `Button.vue`, `button.ts`… | shadcn-style APIs (`variant`, `size`, `asChild`) that render the Bootstrap classes. React and Next.js get function components, Vue gets single-file components, Angular gets standalone components and directives. Plain HTML projects skip this layer. |
+
+Everything sits in Bootstrap 6's `custom` [cascade layer](https://developer.mozilla.org/docs/Web/CSS/@layer). It beats Bootstrap's components no matter how specific their selectors are, and still loses to Bootstrap's utilities, so `mt-3` or `d-none` keep working.
+
+One exception: Bootstrap 6 alpha.1 emits its `:root` tokens outside any layer, and unlayered CSS beats every layer. So the bridge's `:root` block is unlayered too, which is why shadcn-bootstrap must load **after** Bootstrap.
+
+## Status
+
+{builtCount} of {catalog.components.length} components are built. The rest are planned in batches; see [Components](/docs/components/) and the [Roadmap](/docs/roadmap/). Bootstrap 6 is itself in alpha, so class and token names can still change.
+
+## Why components on top of Bootstrap
+
+shadcn/ui's components wrap Radix, which supplies the behaviour. Here, Bootstrap 6 supplies the behaviour for every framework through its JavaScript and `data-bs-*` attributes. So the components stay small: they map props like `variant="outline"` to Bootstrap classes, and the CSS does the rest. One CSS package serves React, Next.js, Angular, Vue and plain HTML alike.
+
+## Next steps
+
+- Set up your framework: [Next.js](/docs/frameworks/next/), [React](/docs/frameworks/react/), [Vue](/docs/frameworks/vue/) or [Angular](/docs/frameworks/angular/)
+- [Installation](/docs/installation/): CDN, npm or the CLI
+- [Theming](/docs/theming/): tokens, base colors and your own colors
+- [Theme generator](/themes/): build a `tokens.css` block visually
