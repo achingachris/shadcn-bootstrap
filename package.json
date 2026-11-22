@@ -17,6 +17,10 @@
   ],
   "license": "MIT",
   "author": "Chris Achinga",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achingachris/shadcn-bootstrap.git"
+  },
   "type": "module",
   "files": [
     "dist"
