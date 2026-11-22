@@ -1,7 +1,8 @@
 ---
 // A shell command with its output underneath. `planned` marks output that shows the
-// designed behaviour of a command that doesn't exist yet (the CLI before 0.1.0).
+// designed behaviour of a command that doesn't exist yet (the CLI before CLI_VERSION).
 import CopyButton from "./CopyButton.astro";
+import { CLI_VERSION } from "../lib/build-info";
 
 interface Props { command: string; output?: string; planned?: boolean; title?: string }
 const { command, output, planned = false, title = "Terminal" } = Astro.props;
@@ -11,7 +12,7 @@ const commands = command.trim().split("\n");
   <div class="docs-terminal-bar">
     <span class="docs-terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
     <span class="docs-terminal-title">{title}</span>
-    {planned && <span class="badge badge-outline" title="This command ships in 0.1.0. The output shows its designed behaviour.">planned</span>}
+    {planned && <span class="badge badge-outline" title={`This command ships in ${CLI_VERSION}. The output shows its designed behaviour.`}>planned</span>}
     <CopyButton code={commands.join("\n")} label="Copy command" />
   </div>
   <pre class="docs-terminal-body"><code>{commands.map((c) => <span class="docs-terminal-cmd"><span class="docs-terminal-prompt" aria-hidden="true">$ </span>{c}{"\n"}</span>)}{output && <span class="docs-terminal-output">{output.replace(/^\n+|\s+$/g, "")}</span>}</code></pre>
