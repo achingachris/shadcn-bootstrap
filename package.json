@@ -1,6 +1,6 @@
 {
   "name": "shadcn-bootstrap",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Unofficial community port of shadcn/ui for Bootstrap 6: shadcn-style components for React, Next.js, Vue and Angular, plus the CSS that styles them (works with plain HTML too).",
   "keywords": [
     "bootstrap",
